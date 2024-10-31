@@ -26,6 +26,7 @@ def receive_data(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
+           
             for key, value in data.items():
                 sensor = Sensor.objects.get(id=key)
                 sensor.value = value
