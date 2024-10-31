@@ -100,3 +100,18 @@ a, p {
 a:hover {
   color: #004080; /* Navy blue hover for links */
 }
+
+
+
+
+
+/* dashboard.css */
+.bg-blue {
+    background-color: blue !important;
+    color: white; /* Optional: ensure text is readable */
+}
+
+.bg-orange {
+    background-color: orange !important;
+    color: white; /* Optional: ensure text is readable */
+}

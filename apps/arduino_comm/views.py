@@ -20,13 +20,14 @@ def initialize_sensors():
                 value=0,
                 active=False
             )
+            sensor.save()
 
 @csrf_exempt
 def receive_data(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
-           
+
             for key, value in data.items():
                 sensor = Sensor.objects.get(id=key)
                 sensor.value = value
@@ -133,3 +134,5 @@ def active_sensors_page(request):
     sensors = Sensor.objects.all()  # Fetch all sensors
     active_sensors = [sensor for sensor in sensors if sensor.active]  # Filter for active sensors
     return render(request, 'arduino_comm/active_sensors.html', {"device_status": active_sensors})
+
+

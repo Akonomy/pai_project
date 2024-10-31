@@ -9,7 +9,8 @@ urlpatterns = [
     path('dashboard/', views.dashboard_view, name='dashboard'),
     path('profile/', views.profile_view, name='profile'),
     path('logout/', views.logout_view, name='logout'),
-     path('settings/', views.settings_view, name='settings'),  
-      path('analytics/', views.analytics_view, name='analytics'),  # Analytics URL
+    path('settings/', views.settings_view, name='settings'),  
+    path('analytics/', views.analytics_view, name='analytics'),  # Analytics URL
+    path('sensor-data/', views.get_sensor_data, name='sensor_data'),
 ]
 

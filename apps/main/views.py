@@ -6,6 +6,11 @@ from django.http import HttpResponse
 from .forms import LoginForm, RegisterForm
 from django.contrib import messages
 
+from apps.arduino_comm.models import Sensor
+from django.http import JsonResponse
+
+
+
 def login_view(request):
     error = None
     if request.method == 'POST':
@@ -46,7 +51,38 @@ def register_view(request):
 
 @login_required
 def dashboard_view(request):
-    return render(request, 'main/dashboard.html')
+    sensors = Sensor.objects.all()  # Fetch all sensors
+    asensors = [sensor for sensor in sensors if sensor.active] 
+# Group sensors by type and mode
+    analog_outputs = [sensor for sensor in asensors if sensor.type == "output" and sensor.mode == "analog"]
+    digital_outputs = [sensor for sensor in asensors if sensor.type == "output" and sensor.mode == "digital"]
+    analog_inputs = [sensor for sensor in asensors if sensor.type == "input" and sensor.mode == "analog"]
+    digital_inputs = [sensor for sensor in asensors if sensor.type == "input" and sensor.mode == "digital"]
+
+    return render(request, 'main/dashboard.html', {
+        "analog_outputs": analog_outputs,
+        "digital_outputs": digital_outputs,
+        "analog_inputs": analog_inputs,
+        "digital_inputs": digital_inputs,
+    })
+  
+
+
+def get_sensor_data(request):
+    try:
+        sensors = Sensor.objects.all()
+        data = {sensor.id: {
+                    "status": sensor.status,
+                    "value": sensor.value,
+                } for sensor in sensors}
+        return JsonResponse(data, safe=False)  # Explicitly return JSON
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=500)
+
+
+
+
+
 
 @login_required
 def profile_view(request):

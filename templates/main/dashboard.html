@@ -50,72 +50,208 @@
                 </div>
             </nav>
 
-            <!-- Main Content -->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 main-header">
-                    <h1>Welcome, {{ request.user.username }}</h1>
-                </div>
-                
-                <!-- Info Panels Section -->
-                <div class="row">
-                    <!-- Quick Links Panel -->
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Quick Links</h5>
-                                <p class="card-text">Access essential sections quickly.</p>
-                                <ul class="list-unstyled">
-                                    <li><a href="{% url 'main:profile' %}">Profile</a></li>
-                                    <li><a href="{% url 'main:settings' %}">Settings</a></li>
-                                    <li><a href="{% url 'main:analytics' %}">Analytics</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Notifications Panel -->
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Notifications</h5>
-                                <p class="card-text">Stay up-to-date with recent updates.</p>
-                                <ul class="list-unstyled">
-                                    <li><i class="fa fa-bell"></i> New login activity</li>
-                                    <li><i class="fa fa-bell"></i> Profile updated successfully</li>
-                                    <li><i class="fa fa-bell"></i> Password changed</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Account Status Panel -->
-                    <div class="col-md-4 mb-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Account Status</h5>
-                                <p class="card-text">Manage your account status and recent activities.</p>
-                                <p><strong>Membership:</strong> Active</p>
-                                <p><strong>Last Login:</strong> {{ request.user.last_login }}</p>
-                                <p><strong>Email:</strong> {{ request.user.email }}</p>
-                            </div>
+           <!-- Main Content -->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 main-header">
+                <h1>Welcome, {{ request.user.username }}</h1>
+            </div>
+            
+            <!-- Info Panels Section (Existing Content) -->
+            <div class="row">
+                <!-- Quick Links Panel -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Quick Links</h5>
+                            <p class="card-text">Access essential sections quickly.</p>
+                            <ul class="list-unstyled">
+                                <li><a href="{% url 'main:profile' %}">Profile</a></li>
+                                <li><a href="{% url 'main:settings' %}">Settings</a></li>
+                                <li><a href="{% url 'main:analytics' %}">Analytics</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- Section Links -->
-                <div class="row">
-                    <div class="col-12">
-                        <h3 class="mt-4">Explore More</h3>
-                        <p>Use the sidebar to access additional sections of the app, such as analytics, settings, and more.</p>
+                <!-- Notifications Panel -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Notifications</h5>
+                            <p class="card-text">Stay up-to-date with recent updates.</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fa fa-bell"></i> New login activity</li>
+                                <li><i class="fa fa-bell"></i> Profile updated successfully</li>
+                                <li><i class="fa fa-bell"></i> Password changed</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </main>
+
+                <!-- Account Status Panel -->
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">Account Status</h5>
+                            <p class="card-text">Manage your account status and recent activities.</p>
+                            <p><strong>Membership:</strong> Active</p>
+                            <p><strong>Last Login:</strong> {{ request.user.last_login }}</p>
+                            <p><strong>Email:</strong> {{ request.user.email }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+   
+<!-- Outputs Section in a Single Row -->
+<div class="row mt-4">
+    <!-- Digital Outputs on the Left -->
+    <div class="col-md-6">
+        <h3>Digital Outputs</h3>
+        {% for sensor in digital_outputs %}
+            <div class="col-md-12 mb-4">
+                <div class="card shadow-sm sensor-card" id="sensor-{{ sensor.id }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sensor.name }}</h5>
+                        <p><strong>Mode:</strong> Digital</p>
+                        <button class="btn btn-secondary digital-control" 
+                                onclick="sendDigitalCommand('{{ sensor.id }}', 'high')">High</button>
+                        <button class="btn btn-secondary digital-control" 
+                                onclick="sendDigitalCommand('{{ sensor.id }}', 'low')">Low</button>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Analog Outputs on the Right -->
+    <div class="col-md-6">
+        <h3>Analog Outputs</h3>
+        {% for sensor in analog_outputs %}
+            <div class="col-md-12 mb-4">
+                <div class="card shadow-sm sensor-card" id="sensor-{{ sensor.id }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ sensor.name }}</h5>
+                        <p><strong>Mode:</strong> Analog</p>
+                        <input type="range" 
+                               class="analog-control" 
+                               min="0" max="255" 
+                               value="{{ sensor.value }}" 
+                               oninput="sendAnalogValue('{{ sensor.id }}', this.value)">
+                        <span id="value-display-{{ sensor.id }}">{{ sensor.value }}</span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+    <!-- Digital Inputs Section -->
+    <div class="row mt-4">
+    <div class="col md-6">
+        
+            <h3>Digital Inputs</h3>
+            {% for sensor in digital_inputs %}
+                <div class="col-md-12 mb-4  " >
+                    <div class="card shadow-sm sensor-card 
+                        {% if sensor.value == 1 and sensor.name == 'PIN_1_BLUE' %}bg-blue{% elif sensor.value == 1 and sensor.name == 'PIN_2_GREEN' %}bg-orange{% endif %}" 
+                 id="sensor-{{ sensor.id }}">
+                <div class="card-body">
+                            <h5 class="card-title">{{ sensor.name }}</h5>
+                            <p><strong>Mode:</strong> Digital</p>
+                            <p><strong>Status:</strong> 
+                                <span class="{% if sensor.value == 'high' %}high{% else %}low{% endif %}">
+                                    {{ sensor.value|title }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    
+
+
+        <!-- Analog Inputs Section -->
+    <div class="row col-md-6">
+            <h3>Analog Inputs</h3>
+            {% for sensor in analog_inputs %}
+                <div class="col-md-12 mb-4">
+                    <div class="card shadow-sm sensor-card" id="sensor-{{ sensor.id }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ sensor.name }}</h5>
+                            <p><strong>Mode:</strong> Analog</p>
+                            <p><strong>Value:</strong> {{ sensor.value }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 
-    <!-- Load JS Files -->
-    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+
+
+
+</main>
+    </div>
+</div>
+
+<!-- Load JS Files -->
+<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+
+<!-- JavaScript functions for sending commands to sensors -->
+<script>
+function sendDigitalCommand(sensorId, status) {
+    fetch("{% url 'arduino_comm:send_command' %}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
+        body: JSON.stringify({ sensor_id: sensorId, command: status })
+    }).then(response => response.json())
+      .then(data => console.log(data.message || "Command sent successfully"));
+}
+
+function sendAnalogValue(sensorId, value) {
+    document.getElementById(`value-display-${sensorId}`).innerText = value;
+    fetch("{% url 'arduino_comm:send_command' %}", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
+        body: JSON.stringify({ sensor_id: sensorId, command: "set_value", value: value })
+    }).then(response => response.json())
+      .then(data => console.log(data.message || "Value updated successfully"));
+}
+
+
+let previousSensorData = {};
+
+function fetchSensorData() {
+    fetch("{% url 'main:sensor_data' %}")
+        .then(response => response.json())
+        .then(data => {
+            console.log("Fetched sensor data:", data); // Log the fetched data
+
+            if (hasSensorDataChanged(data)) {
+                console.log("Data changed - Reloading page.");
+                location.reload();
+            } else {
+                console.log("No change in sensor data.");
+            }
+            previousSensorData = data; // Update the cached data
+        })
+        .catch(error => console.error('Error fetching sensor data:', error));
+}
+
+function hasSensorDataChanged(newData) {
+    return JSON.stringify(newData) !== JSON.stringify(previousSensorData);
+}
+
+// Poll every 5 seconds
+setInterval(fetchSensorData, 2000);
+
+</script>
+
 </body>
 </html>
