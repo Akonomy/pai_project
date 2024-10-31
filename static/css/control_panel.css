@@ -1,0 +1,134 @@
+/* Dark theme background */
+body {
+    background-color: #1a1a1a;
+    color: #e6e6e6;
+    font-family: Arial, sans-serif;
+}
+
+/* Container styling */
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: #2c2c2c;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    font-size: 2.5em;
+    color: #00ffcc;
+    font-weight: bold;
+}
+
+/* Sensor item styling */
+.sensor-item {
+    padding: 15px;
+    background-color: #333;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* LED indicator button */
+.sensor-toggle {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #555;
+    transition: background-color 0.3s;
+}
+
+.sensor-toggle.on {
+    background-color: #00ff00;
+    box-shadow: 0 0 8px #00ff00;
+}
+
+.sensor-toggle.off {
+    background-color: #555;
+}
+
+/* Graph bar for sensor values */
+.sensor-value-bar {
+    height: 10px;
+    background: linear-gradient(90deg, #00ffcc, #0077ff);
+    border-radius: 5px;
+    margin-top: 5px;
+    transition: width 0.5s;
+}
+
+.sensor-item p {
+    margin: 0;
+}
+
+/* Input fields and select dropdown styling */
+input[type="text"], select {
+    background-color: #2c2c2c;
+    color: #e6e6e6;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 5px 10px;
+    width: 120px;
+    margin-left: 10px;
+}
+
+input[type="text"]:focus, select:focus {
+    outline: none;
+    border-color: #00ffcc;
+}
+
+/* Graph container for animated sensor values */
+.graph-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.graph-label {
+    color: #888;
+    width: 100px;
+}
+
+/* Tooltip for sensor status */
+.sensor-status-tooltip {
+    position: relative;
+    cursor: pointer;
+}
+
+.sensor-status-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #333;
+    color: #e6e6e6;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    left: 105%;
+}
+
+.sensor-status-tooltip:hover .tooltip-text {
+    visibility: visible;
+}
+
+/* Styled button for toggling LEDs */
+.btn {
+    background-color: #005f5f;
+    color: #e6e6e6;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #00b3b3;
+}

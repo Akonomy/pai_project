@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arduino Control Panel</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/control_panel.css' %}">
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+</head>
+<body>
+<div class="container my-4">
+    <h1>Arduino Control Panel</h1>
+    <div id="sensor-info">
+        <h3>Sensor Status</h3>
+        <div id="sensor-list">
+            {% for key, sensor in device_status.items %}
+                <div class="sensor-item">
+                    <div>
+                        <p><strong>{{ sensor.name }}:</strong>
+                            <span class="graph-container">
+                                {% if sensor.type == "output" %}
+                                    <button class="sensor-toggle {% if sensor.status == 'on' %}on{% else %}off{% endif %}" 
+                                            data-id="{{ key }}"></button>
+                                {% else %}
+                                    <div class="graph-container">
+                                        <span class="graph-label">{{ sensor.value }}%</span>
+                                        <div class="sensor-value-bar" id="{{ key }}-value-bar" style="width: {{ sensor.value }}%;"></div>
+                                    </div>
+                                {% endif %}
+                            </span>
+                        </p>
+                        <label for="name-{{ key }}">Name:</label>
+                        <input type="text" id="name-{{ key }}" value="{{ sensor.name }}" class="sensor-name-input" data-id="{{ key }}">
+                        <label for="type-{{ key }}">Type:</label>
+                        <select id="type-{{ key }}" class="sensor-type-select" data-id="{{ key }}">
+                            <option value="input" {% if sensor.type == "input" %}selected{% endif %}>Input</option>
+                            <option value="output" {% if sensor.type == "output" %}selected{% endif %}>Output</option>
+                        </select>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script>
+    // Function to update sensor configuration
+    function updateConfiguration(sensorId, name, type) {
+        $.ajax({
+            url: "{% url 'arduino_comm:configure_sensor' %}",
+            type: "POST",
+            data: JSON.stringify({sensor_id: sensorId, name: name, type: type}),
+            contentType: "application/json",
+            success: function(response) {
+                console.log(response);
+            }
+        });
+    }
+
+    // Function to refresh sensor data
+    function refreshSensorData() {
+        $.ajax({
+            url: "{% url 'arduino_comm:fetch_sensor_data' %}",
+            type: "GET",
+            success: function(response) {
+                // Update each sensor's displayed value or status
+                for (const [sensorId, data] of Object.entries(response)) {
+                    if (data.type === "output") {
+                        // Update LED indicator
+                        const button = $("#" + sensorId + "-status .sensor-toggle");
+                        button.removeClass("on off").addClass(data.status === "on" ? "on" : "off");
+                    } else {
+                        // Update value and progress bar for input sensors
+                        $("#" + sensorId + "-status .graph-label").text(data.value + "%");
+                        $("#" + sensorId + "-value-bar").css("width", data.value + "%");
+                    }
+                }
+            }
+        });
+    }
+
+    // Poll for updates every 3 seconds
+    setInterval(refreshSensorData, 3000);
+
+    // Event listener for name input changes
+    $(".sensor-name-input").on("change", function() {
+        const sensorId = $(this).data("id");
+        const name = $(this).val();
+        const type = $("#type-" + sensorId).val();
+        updateConfiguration(sensorId, name, type);
+    });
+
+    // Event listener for type select changes
+    $(".sensor-type-select").on("change", function() {
+        const sensorId = $(this).data("id");
+        const type = $(this).val();
+        const name = $("#name-" + sensorId).val();
+        updateConfiguration(sensorId, name, type);
+    });
+
+    // Function to toggle output sensors
+    function toggleSensor(sensorId) {
+        $.ajax({
+            url: "{% url 'arduino_comm:send_command' %}",
+            type: "POST",
+            data: JSON.stringify({sensor_id: sensorId, command: "toggle"}),
+            contentType: "application/json",
+            success: function(response) {
+                $("#" + sensorId + "-status button").toggleClass("on off");
+            }
+        });
+    }
+
+    // Event listener for toggle buttons
+    $(".sensor-toggle").on("click", function() {
+        const sensorId = $(this).data("id");
+        toggleSensor(sensorId);
+    });
+</script>
+</body>
+</html>

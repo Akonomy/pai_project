@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     #MY APPS
 
     'apps.main',
+    'apps.arduino_comm',  # app for comunication
 
 ]
 
