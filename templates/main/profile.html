@@ -4,12 +4,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Profile - Proiect AIA</title>
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/animate/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/css-hamburgers/hamburgers.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/select2/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <style>
+        /* Center the content */
+        .wrap-login100 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        /* Style for profile info */
+        .profile-info p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>User Profile</h1>
-    <p>Username: {{ request.user.username }}</p>
-    <p>Email: {{ request.user.email }}</p>
-    <a href="{% url 'main:dashboard' %}">Back to Dashboard</a>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <span class="login100-form-title">
+                    Profil Utilizator
+                </span>
+
+                <div class="profile-info">
+                    <p><strong>Username:</strong> {{ request.user.username }}</p>
+                    <p><strong>Email:</strong> {{ request.user.email }}</p>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <a class="login100-form-btn" href="{% url 'main:dashboard' %}">
+                        Înapoi la Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+    <script src="{% static 'vendor/tilt/tilt.jquery.min.js' %}"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        });
+    </script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
 </html>
