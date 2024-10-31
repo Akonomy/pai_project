@@ -107,7 +107,7 @@ a:hover {
 
 /* dashboard.css */
 .bg-blue {
-    background-color: blue !important;
+    background-color: cyan !important;
     color: white; /* Optional: ensure text is readable */
 }
 

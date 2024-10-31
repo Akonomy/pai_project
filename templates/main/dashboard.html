@@ -155,7 +155,7 @@
             {% for sensor in digital_inputs %}
                 <div class="col-md-12 mb-4  " >
                     <div class="card shadow-sm sensor-card 
-                        {% if sensor.value == 1 and sensor.name == 'PIN_1_BLUE' %}bg-blue{% elif sensor.value == 1 and sensor.name == 'PIN_2_GREEN' %}bg-orange{% endif %}" 
+                        {% if sensor.value == 1 and sensor.name == 'PIN_1_BLUE' %}bg-blue{% elif sensor.value == 1 and sensor.name == 'PIN_2_ORANGE' %}bg-orange{% endif %}" 
                  id="sensor-{{ sensor.id }}">
                 <div class="card-body">
                             <h5 class="card-title">{{ sensor.name }}</h5>
@@ -224,32 +224,80 @@ function sendAnalogValue(sensorId, value) {
       .then(data => console.log(data.message || "Value updated successfully"));
 }
 
-
 let previousSensorData = {};
 
 function fetchSensorData() {
     fetch("{% url 'main:sensor_data' %}")
         .then(response => response.json())
         .then(data => {
-            console.log("Fetched sensor data:", data); // Log the fetched data
-
-            if (hasSensorDataChanged(data)) {
-                console.log("Data changed - Reloading page.");
-                location.reload();
-            } else {
-                console.log("No change in sensor data.");
-            }
-            previousSensorData = data; // Update the cached data
+            updateDivsIfDataChanged(data);
+            previousSensorData = data; // Cache the latest data
         })
         .catch(error => console.error('Error fetching sensor data:', error));
 }
 
-function hasSensorDataChanged(newData) {
-    return JSON.stringify(newData) !== JSON.stringify(previousSensorData);
+function updateDivsIfDataChanged(newData) {
+    let isChanged = false;
+
+    for (let sensorId in newData) {
+        const sensorData = newData[sensorId];
+        const previousData = previousSensorData[sensorId];
+
+        // Check if data has changed
+        if (!previousData || JSON.stringify(sensorData) !== JSON.stringify(previousData)) {
+            // Flag change if any sensor has an update
+            isChanged = true;
+        }
+    }
+
+    if (isChanged) {
+        // If any sensor has changed, update all relevant sensors at once
+        for (let sensorId in newData) {
+            updateSensorDiv(sensorId, newData[sensorId]);
+        }
+    }
 }
 
-// Poll every 5 seconds
-setInterval(fetchSensorData, 2000);
+function updateSensorDiv(sensorId, sensorData) {
+    const sensorDiv = document.getElementById(`sensor-${sensorId}`);
+    if (sensorDiv) {
+        // Update sensor status and value elements
+        const statusElement = sensorDiv.querySelector(".sensor-status");
+        if (statusElement) {
+            statusElement.textContent = sensorData.status;
+        }
+
+        const valueElement = sensorDiv.querySelector(".sensor-value");
+        if (valueElement) {
+            valueElement.textContent = sensorData.value;
+        }
+
+        // Update background color based on conditions
+        sensorDiv.classList.remove("bg-blue", "bg-orange");
+        if (sensorData.value == 1 && sensorData.name === "PIN_1_BLUE") {
+            sensorDiv.classList.add("bg-blue");
+        } 
+        if (sensorData.value == 1 && sensorData.name === "PIN_2_ORANGE") {
+            sensorDiv.classList.add("bg-orange");
+        }
+
+                if (sensorData.status == "high" && sensorData.name == "D_LED_ORANGE") {
+            sensorDiv.classList.add("bg-orange");
+        }
+
+                if (sensorData.status =="high" && sensorData.name === "D_LED_BLUE") {
+            sensorDiv.classList.add("bg-blue");
+        }
+
+
+
+       
+
+    }
+}
+
+// Poll every 2 seconds for faster updates
+setInterval(fetchSensorData, 1800);
 
 </script>
 

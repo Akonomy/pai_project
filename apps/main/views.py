@@ -74,6 +74,7 @@ def get_sensor_data(request):
         data = {sensor.id: {
                     "status": sensor.status,
                     "value": sensor.value,
+                    "name": sensor.name,  # Include name here
                 } for sensor in sensors}
         return JsonResponse(data, safe=False)  # Explicitly return JSON
     except Exception as e:
