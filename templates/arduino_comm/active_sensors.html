@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Active Sensors</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/control_panel.css' %}">
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+</head>
+<body>
+<div class="container my-4">
+    <h1>Active Sensors</h1>
+    <div id="sensor-info">
+        <div id="sensor-list">
+            {% for sensor in device_status %}
+                <div class="sensor-item">
+                    <p><strong>{{ sensor.name }}:</strong></p>
+
+                    {% if sensor.type == "output" %}
+                        <!-- Mode Selector -->
+                        <label for="mode-{{ sensor.id }}">Mode:</label>
+                        <select id="mode-{{ sensor.id }}" class="sensor-mode-select" data-id="{{ sensor.id }}">
+                            <option value="digital" {% if sensor.mode == "digital" %}selected{% endif %}>Digital</option>
+                            <option value="analog" {% if sensor.mode == "analog" %}selected{% endif %}>Analog</option>
+                        </select>
+                        
+                        <!-- Digital Output Control -->
+                        <div id="{{ sensor.id }}-digital-controls" class="digital-controls" {% if sensor.mode != "digital" %}style="display:none;"{% endif %}>
+                            <button class="btn btn-secondary" onclick="sendDigitalCommand('{{ sensor.id }}', 'high')">High</button>
+                            <button class="btn btn-secondary" onclick="sendDigitalCommand('{{ sensor.id }}', 'low')">Low</button>
+                        </div>
+
+                        <!-- Analog Output Control -->
+                        <div id="{{ sensor.id }}-analog-controls" class="analog-controls" {% if sensor.mode != "analog" %}style="display:none;"{% endif %}>
+                            <input type="range" id="range-{{ sensor.id }}" min="0" max="255" value="{{ sensor.value }}" oninput="sendAnalogValue('{{ sensor.id }}', this.value)">
+                            <span id="{{ sensor.id }}-value">{{ sensor.value }}</span>
+                        </div>
+
+                    {% else %}
+                        <!-- Input Sensor Display -->
+                        <div class="graph-container">
+                            <span class="graph-label">{{ sensor.value }}%</span>
+                            <div class="sensor-value-bar" id="{{ sensor.id }}-value-bar" style="width: {{ sensor.value }}%;"></div>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+    // Update sensor mode to show either digital or analog controls
+    $(".sensor-mode-select").on("change", function() {
+        const sensorId = $(this).data("id");
+        const mode = $(this).val();
+
+        $.ajax({
+            url: "{% url 'arduino_comm:configure_sensor' %}",
+            type: "POST",
+            data: JSON.stringify({sensor_id: sensorId, mode: mode}),
+            contentType: "application/json",
+            success: function(response) {
+                if (mode === "digital") {
+                    $("#" + sensorId + "-digital-controls").show();
+                    $("#" + sensorId + "-analog-controls").hide();
+                } else {
+                    $("#" + sensorId + "-digital-controls").hide();
+                    $("#" + sensorId + "-analog-controls").show();
+                }
+            }
+        });
+    });
+
+    // Send high/low command for digital controls
+    function sendDigitalCommand(sensorId, command) {
+        $.ajax({
+            url: "{% url 'arduino_comm:send_command' %}",
+            type: "POST",
+            data: JSON.stringify({sensor_id: sensorId, command: command}),
+            contentType: "application/json",
+            success: function(response) {
+                console.log("Digital command sent:", response);
+            }
+        });
+    }
+
+    // Send analog value for analog controls
+    function sendAnalogValue(sensorId, value) {
+        $("#" + sensorId + "-value").text(value);  // Update displayed value
+        $.ajax({
+            url: "{% url 'arduino_comm:send_command' %}",
+            type: "POST",
+            data: JSON.stringify({sensor_id: sensorId, command: "set_value", value: parseInt(value)}),
+            contentType: "application/json",
+            success: function(response) {
+                console.log("Analog value sent:", response);
+            }
+        });
+    }
+
+    // Poll for updates every 3 seconds
+    setInterval(function() {
+        $.ajax({
+            url: "{% url 'arduino_comm:fetch_sensor_data' %}",
+            type: "GET",
+            success: function(response) {
+                // Update each sensor's displayed value or status
+                for (const [sensorId, data] of Object.entries(response)) {
+                    if (data.active) {
+                        if (data.type === "input") {
+                            // Update input sensor values
+                            $("#" + sensorId + "-value-bar").css("width", data.value + "%");
+                            $("#" + sensorId + "-value").text(data.value + "%");
+                        } else if (data.type === "output" && data.mode === "analog") {
+                            $("#" + sensorId + "-value").text(data.value);
+                            $("#range-" + sensorId).val(data.value);
+                        }
+                    }
+                }
+            }
+        });
+    }, 3000);
+</script>
+</body>
+</html>
