@@ -1,0 +1,47 @@
+# Python bytecode files
+*.py[cod]
+__pycache__/
+*.so
+
+# Django files
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+db.sqlite3
+
+# Environment files
+.env
+*.env
+.vscode/
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+.ENV/
+
+# IDEs
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Static and media files
+/staticfiles/
+/media/
+
+# Ignore migrations
+**/migrations/**
+
+# Ignore compiled files
+*.mo
+
+# Ignore node modules if using npm or yarn for frontend assets
+node_modules/
+
+# Local Django settings
+settings_local.py

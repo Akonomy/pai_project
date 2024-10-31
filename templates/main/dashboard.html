@@ -1,0 +1,121 @@
+<!-- apps/main/templates/main/dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="icon" type="image/png" href="{% static 'images/icons/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                <div class="sidebar-sticky">
+                    <h4 class="text-center py-4">Dashboard Menu</h4>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{% url 'main:dashboard' %}">
+                                <i class="fa fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'main:profile' %}">
+                                <i class="fa fa-user"></i> Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'main:settings' %}">
+                                <i class="fa fa-cog"></i> Settings
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'main:analytics' %}">
+                                <i class="fa fa-chart-bar"></i> Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'main:logout' %}">
+                                <i class="fa fa-sign-out"></i> Logout
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main Content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 main-header">
+                    <h1>Welcome, {{ request.user.username }}</h1>
+                </div>
+                
+                <!-- Info Panels Section -->
+                <div class="row">
+                    <!-- Quick Links Panel -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Quick Links</h5>
+                                <p class="card-text">Access essential sections quickly.</p>
+                                <ul class="list-unstyled">
+                                    <li><a href="{% url 'main:profile' %}">Profile</a></li>
+                                    <li><a href="{% url 'main:settings' %}">Settings</a></li>
+                                    <li><a href="{% url 'main:analytics' %}">Analytics</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications Panel -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Notifications</h5>
+                                <p class="card-text">Stay up-to-date with recent updates.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fa fa-bell"></i> New login activity</li>
+                                    <li><i class="fa fa-bell"></i> Profile updated successfully</li>
+                                    <li><i class="fa fa-bell"></i> Password changed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Status Panel -->
+                    <div class="col-md-4 mb-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Account Status</h5>
+                                <p class="card-text">Manage your account status and recent activities.</p>
+                                <p><strong>Membership:</strong> Active</p>
+                                <p><strong>Last Login:</strong> {{ request.user.last_login }}</p>
+                                <p><strong>Email:</strong> {{ request.user.email }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Links -->
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="mt-4">Explore More</h3>
+                        <p>Use the sidebar to access additional sections of the app, such as analytics, settings, and more.</p>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Load JS Files -->
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+</html>

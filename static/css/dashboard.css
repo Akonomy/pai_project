@@ -1,0 +1,102 @@
+/*//////////////////////////////////////////////////////////////////
+[ Dashboard Styling with Navy Blue Theme ]
+*/
+
+/* Sidebar */
+.sidebar {
+  background-color: #003366; /* Navy blue background */
+  height: 100vh;
+  padding-top: 1rem;
+}
+
+.sidebar .nav-link {
+  color: #ffffff; /* White for better contrast */
+  font-family: Poppins-Regular;
+  font-size: 15px;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  background-color: #004080; /* Slightly lighter navy for hover */
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.sidebar-sticky h4 {
+  color: #ffffff;
+}
+
+/* Main Content Header */
+.main-header {
+  background-color: #004080;
+  color: #ffffff;
+  padding: 1rem;
+  font-family: Poppins-Bold;
+}
+
+/* Card Style for Info Panels */
+.card {
+  border: none;
+  border-radius: 8px;
+}
+
+.card .card-title {
+  font-family: Poppins-Bold;
+  color: #003366;
+}
+
+.card-body {
+  font-family: Poppins-Regular;
+  color: #666666;
+}
+
+.card.shadow-sm {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card a {
+  color: #004080;
+  text-decoration: none;
+}
+
+.card a:hover {
+  color: #00264d; /* Darker shade for hover */
+  text-decoration: underline;
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: #004080;
+  border: none;
+  color: #ffffff;
+  font-family: Montserrat-Bold;
+  transition: background-color 0.4s;
+}
+
+.btn-primary:hover {
+  background-color: #003366;
+}
+
+.btn-secondary {
+  background-color: #666666;
+  border: none;
+  color: #ffffff;
+  font-family: Montserrat-Bold;
+}
+
+.btn-secondary:hover {
+  background-color: #4d4d4d;
+}
+
+/* Typography Adjustments */
+h1, h2, h3, h4, h5, h6 {
+  color: #003366; /* Navy blue for headings */
+}
+
+a, p {
+  color: #666666;
+}
+
+a:hover {
+  color: #004080; /* Navy blue hover for links */
+}
