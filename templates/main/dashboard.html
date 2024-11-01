@@ -17,7 +17,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+            <nav class="col-md-4 col-lg-2 d-md-block sidebar">
                 <div class="sidebar-sticky">
                     <h4 class="text-center py-4">Dashboard Menu</h4>
                     <ul class="nav flex-column">
@@ -36,11 +36,7 @@
                                 <i class="fa fa-cog"></i> Settings
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main:analytics' %}">
-                                <i class="fa fa-chart-bar"></i> Analytics
-                            </a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'main:logout' %}">
                                 <i class="fa fa-sign-out"></i> Logout
@@ -67,7 +63,7 @@
                             <ul class="list-unstyled">
                                 <li><a href="{% url 'main:profile' %}">Profile</a></li>
                                 <li><a href="{% url 'main:settings' %}">Settings</a></li>
-                                <li><a href="{% url 'main:analytics' %}">Analytics</a></li>
+                               
                             </ul>
                         </div>
                     </div>
@@ -290,6 +286,23 @@ function updateSensorDiv(sensorId, sensorData) {
         }
 
 
+
+
+
+         const alpha = sensorData.value / 255;
+
+        // Clear existing background classes
+        sensorDiv.style.backgroundColor = ""; // Reset background color if needed
+
+        // Update background color with dynamic transparency
+        if (sensorData.name === "A_LED_VERDE") {
+            // Green color with variable opacity
+            sensorDiv.style.backgroundColor = `rgba(0, 255, 0, ${alpha})`;
+        } else if (sensorData.name === "A_LED_ROSU") {
+            // Red color with variable opacity
+            sensorDiv.style.backgroundColor = `rgba(255, 0, 0, ${alpha})`;
+        }
+                
 
        
 

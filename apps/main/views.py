@@ -97,11 +97,3 @@ def settings_view(request):
     return render(request, 'main/settings.html')
 
 
-@login_required
-def analytics_view(request):
-    # Context data for the analytics page, if needed
-    context = {
-        'title': 'Analytics',
-        # You can add additional data for charts, metrics, etc.
-    }
-    return render(request, 'main/analytics.html', context)

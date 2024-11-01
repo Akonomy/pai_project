@@ -15,12 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
+from apps.main import views as main_views  # Import the main app's views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.main.urls')),
-    
+
+     path('', main_views.dashboard_view, name='root_dashboard'),
+
     path('', include('apps.arduino_comm.urls', namespace='arduino_comm')),  # New app
 ]
 
