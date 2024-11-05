@@ -1,4 +1,3 @@
-<!-- apps/main/templates/main/dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,32 +12,31 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
 </head>
-<body>
-    <div class="container-fluid">
+<body class="dashboard-body">
+    <div class="container-fluid dashboard-container">
         <div class="row">
             <!-- Sidebar -->
-            <nav class="col-md-4 col-lg-2 d-md-block sidebar">
+            <nav class="col-md-4 col-lg-2 d-md-block sidebar sidebar-navigation">
                 <div class="sidebar-sticky">
-                    <h4 class="text-center py-4">Dashboard Menu</h4>
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" href="{% url 'main:dashboard' %}">
+                    <h4 class="text-center py-4 sidebar-title">Dashboard Menu</h4>
+                    <ul class="nav flex-column sidebar-menu">
+                        <li class="nav-item menu-item">
+                            <a class="nav-link active menu-link" href="{% url 'main:dashboard' %}">
                                 <i class="fa fa-home"></i> Home
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main:profile' %}">
+                        <li class="nav-item menu-item">
+                            <a class="nav-link menu-link" href="{% url 'main:profile' %}">
                                 <i class="fa fa-user"></i> Profile
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main:settings' %}">
+                        <li class="nav-item menu-item">
+                            <a class="nav-link menu-link" href="{% url 'main:settings' %}">
                                 <i class="fa fa-cog"></i> Settings
                             </a>
                         </li>
-                        
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'main:logout' %}">
+                        <li class="nav-item menu-item">
+                            <a class="nav-link menu-link" href="{% url 'main:logout' %}">
                                 <i class="fa fa-sign-out"></i> Logout
                             </a>
                         </li>
@@ -46,273 +44,223 @@
                 </div>
             </nav>
 
-           <!-- Main Content -->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 main-header">
-                <h1>Welcome, {{ request.user.username }}</h1>
-            </div>
-            
-            <!-- Info Panels Section (Existing Content) -->
-            <div class="row">
-                <!-- Quick Links Panel -->
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Quick Links</h5>
-                            <p class="card-text">Access essential sections quickly.</p>
-                            <ul class="list-unstyled">
-                                <li><a href="{% url 'main:profile' %}">Profile</a></li>
-                                <li><a href="{% url 'main:settings' %}">Settings</a></li>
-                               
-                            </ul>
+            <!-- Main Content -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4 main-content">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 main-header">
+                    <h1 class="welcome-message">Welcome, {{ request.user.username }}</h1>
+                </div>
+                
+                <!-- Info Panels Section (Existing Content) -->
+                <div class="row info-panels">
+                   
+                    
+
+                    <!-- Notifications Panel -->
+                    <div class="col-md-4 mb-4 info-panel">
+                        <div class="card shadow-sm notifications-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Notifications</h5>
+                                <p class="card-text">Stay up-to-date with recent updates.</p>
+                                <ul class="list-unstyled notifications-list">
+                                    <li><i class="fa fa-bell"></i> New login activity</li>
+                                    <li><i class="fa fa-bell"></i> Profile updated successfully</li>
+                                    <li><i class="fa fa-bell"></i> Password changed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Account Status Panel -->
+                    <div class="col-md-4 mb-4 info-panel">
+                        <div class="card shadow-sm account-status-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Account Status</h5>
+                                <p class="card-text">Manage your account status and recent activities.</p>
+                                <p><strong>Membership:</strong> Active</p>
+                                <p><strong>Last Login:</strong> {{ request.user.last_login }}</p>
+                                <p><strong>Email:</strong> {{ request.user.email }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Notifications Panel -->
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Notifications</h5>
-                            <p class="card-text">Stay up-to-date with recent updates.</p>
-                            <ul class="list-unstyled">
-                                <li><i class="fa fa-bell"></i> New login activity</li>
-                                <li><i class="fa fa-bell"></i> Profile updated successfully</li>
-                                <li><i class="fa fa-bell"></i> Password changed</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Account Status Panel -->
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Account Status</h5>
-                            <p class="card-text">Manage your account status and recent activities.</p>
-                            <p><strong>Membership:</strong> Active</p>
-                            <p><strong>Last Login:</strong> {{ request.user.last_login }}</p>
-                            <p><strong>Email:</strong> {{ request.user.email }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-   
-<!-- Outputs Section in a Single Row -->
-<div class="row mt-4">
-    <!-- Digital Outputs on the Left -->
-    <div class="col-md-6">
-        <h3>Digital Outputs</h3>
-        {% for sensor in digital_outputs %}
-            <div class="col-md-12 mb-4">
-                <div class="card shadow-sm sensor-card" id="sensor-{{ sensor.id }}">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ sensor.name }}</h5>
-                        <p><strong>Mode:</strong> Digital</p>
-                        <button class="btn btn-secondary digital-control" 
-                                onclick="sendDigitalCommand('{{ sensor.id }}', 'high')">High</button>
-                        <button class="btn btn-secondary digital-control" 
-                                onclick="sendDigitalCommand('{{ sensor.id }}', 'low')">Low</button>
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <!-- Analog Outputs on the Right -->
-    <div class="col-md-6">
-        <h3>Analog Outputs</h3>
+               
+<!-- Outputs Section -->
+<div class="outputs-section mt-4">
+    
+   <!-- Analog Outputs Group -->
+<h3 class="section-title">Analog Outputs</h3>
+<div class="analog-group">
+    <div class="row mb-4">
         {% for sensor in analog_outputs %}
-            <div class="col-md-12 mb-4">
-                <div class="card shadow-sm sensor-card" id="sensor-{{ sensor.id }}">
+            <div class="col-md-6 analog-output">
+                <div class="card shadow-sm sensor-card analog-card" id="sensor-{{ sensor.id }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ sensor.name }}</h5>
                         <p><strong>Mode:</strong> Analog</p>
-                        <input type="range" 
-                               class="analog-control" 
-                               min="0" max="255" 
-                               value="{{ sensor.value }}" 
-                               oninput="sendAnalogValue('{{ sensor.id }}', this.value)">
-                        <span id="value-display-{{ sensor.id }}">{{ sensor.value }}</span>
+
+                        <!-- Range Slider Control -->
+                        <input type="range" class="analog-control range-slider" min="0" max="255" value="{{ sensor.value }}" oninput="sendAnalogValue('{{ sensor.id }}', this.value)">
+                        <span id="value-display-{{ sensor.id }}" class="analog-value-display">{{ sensor.value }}</span>
+
+                        <!-- Preset Buttons -->
+                        <div class="preset-buttons mt-3">
+                            <button class="btn btn-secondary btn-sm" onclick="sendPresetValue('{{ sensor.id }}', 50)">Low</button>
+                            <button class="btn btn-secondary btn-sm" onclick="sendPresetValue('{{ sensor.id }}', 128)">Medium</button>
+                            <button class="btn btn-secondary btn-sm" onclick="sendPresetValue('{{ sensor.id }}', 200)">High</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                </div><div class="row mb-4"> <!-- Close the row after two items and start a new row -->
+            {% endif %}
         {% endfor %}
-    </div>
+    </div> <!-- Close the last row -->
 </div>
 
-
-
-    <!-- Digital Inputs Section -->
-    <div class="row mt-4">
-    <div class="col md-6">
-        
-            <h3>Digital Inputs</h3>
-            {% for sensor in digital_inputs %}
-                <div class="col-md-12 mb-4  " >
-                    <div class="card shadow-sm sensor-card 
-                        {% if sensor.value == 1 and sensor.name == 'PIN_1_BLUE' %}bg-blue{% elif sensor.value == 1 and sensor.name == 'PIN_2_ORANGE' %}bg-orange{% endif %}" 
-                 id="sensor-{{ sensor.id }}">
-                <div class="card-body">
-                            <h5 class="card-title">{{ sensor.name }}</h5>
-                            <p><strong>Mode:</strong> Digital</p>
-                            <p><strong>Status:</strong> 
-                                <span class="{% if sensor.value == 'high' %}high{% else %}low{% endif %}">
-                                    {{ sensor.value|title }}
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    
-
-
-        <!-- Analog Inputs Section -->
-    <div class="row col-md-6">
-            <h3>Analog Inputs</h3>
-            {% for sensor in analog_inputs %}
-                <div class="col-md-12 mb-4">
-                    <div class="card shadow-sm sensor-card" id="sensor-{{ sensor.id }}">
+    <!-- Digital Outputs Group -->
+    <h3 class="section-title mt-4">Digital Outputs</h3>
+    <div class="digital-group">
+        <div class="row mb-4">
+            {% for sensor in digital_outputs %}
+                <div class="col-md-6 digital-output">
+                    <div class="card shadow-sm sensor-card digital-card" id="sensor-{{ sensor.id }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ sensor.name }}</h5>
-                            <p><strong>Mode:</strong> Analog</p>
-                            <p><strong>Value:</strong> {{ sensor.value }}</p>
+                            <p><strong>Mode:</strong> Digital</p>
+                            <button class="btn btn-secondary digital-control high-button" onclick="sendDigitalCommand('{{ sensor.id }}', 'high')">High</button>
+                            <button class="btn btn-secondary digital-control low-button" onclick="sendDigitalCommand('{{ sensor.id }}', 'low')">Low</button>
                         </div>
                     </div>
                 </div>
+                {% if forloop.counter|divisibleby:2 and not forloop.last %}
+                    </div><div class="row mb-4"> <!-- Close the row after two items and start a new row -->
+                {% endif %}
             {% endfor %}
-        </div>
-    </div>
-
-
-
-
-
-</main>
+        </div> <!-- Close the last row -->
     </div>
 </div>
 
-<!-- Load JS Files -->
-<script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-<script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
-<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
 
-<!-- JavaScript functions for sending commands to sensors -->
-<script>
-function sendDigitalCommand(sensorId, status) {
-    fetch("{% url 'arduino_comm:send_command' %}", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
-        body: JSON.stringify({ sensor_id: sensorId, command: status })
-    }).then(response => response.json())
-      .then(data => console.log(data.message || "Command sent successfully"));
-}
 
-function sendAnalogValue(sensorId, value) {
-    document.getElementById(`value-display-${sensorId}`).innerText = value;
-    fetch("{% url 'arduino_comm:send_command' %}", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
-        body: JSON.stringify({ sensor_id: sensorId, command: "set_value", value: value })
-    }).then(response => response.json())
-      .then(data => console.log(data.message || "Value updated successfully"));
-}
+                   
+                </div>
+            </main>
+        </div>
+    </div>
 
-let previousSensorData = {};
+    <!-- Load JS Files -->
+    <script src="{% static 'vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
 
-function fetchSensorData() {
-    fetch("{% url 'main:sensor_data' %}")
-        .then(response => response.json())
-        .then(data => {
-            updateDivsIfDataChanged(data);
-            previousSensorData = data; // Cache the latest data
-        })
-        .catch(error => console.error('Error fetching sensor data:', error));
-}
+    <!-- JavaScript functions for sending commands to sensors -->
+    <script>
 
-function updateDivsIfDataChanged(newData) {
-    let isChanged = false;
 
-    for (let sensorId in newData) {
-        const sensorData = newData[sensorId];
-        const previousData = previousSensorData[sensorId];
+    function sendPresetValue(sensorId, value) {
+        document.getElementById(`value-display-${sensorId}`).innerText = value; // Update display with preset value
+        document.querySelector(`#sensor-${sensorId} .range-slider`).value = value; // Update slider to reflect preset value
 
-        // Check if data has changed
-        if (!previousData || JSON.stringify(sensorData) !== JSON.stringify(previousData)) {
-            // Flag change if any sensor has an update
-            isChanged = true;
-        }
+        // Send the preset value as an analog command
+        fetch("{% url 'arduino_comm:send_command' %}", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
+            body: JSON.stringify({ sensor_id: sensorId, command: "set_value", value: value })
+        }).then(response => response.json())
+          .then(data => console.log(data.message || "Preset value updated successfully"));
+    }
+    function sendDigitalCommand(sensorId, status) {
+        fetch("{% url 'arduino_comm:send_command' %}", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
+            body: JSON.stringify({ sensor_id: sensorId, command: status })
+        }).then(response => response.json())
+          .then(data => console.log(data.message || "Command sent successfully"));
     }
 
-    if (isChanged) {
-        // If any sensor has changed, update all relevant sensors at once
+    function sendAnalogValue(sensorId, value) {
+        document.getElementById(`value-display-${sensorId}`).innerText = value;
+        fetch("{% url 'arduino_comm:send_command' %}", {
+            method: "POST",
+            headers: { "Content-Type": "application/json", "X-CSRFToken": "{{ csrf_token }}" },
+            body: JSON.stringify({ sensor_id: sensorId, command: "set_value", value: value })
+        }).then(response => response.json())
+          .then(data => console.log(data.message || "Value updated successfully"));
+    }
+
+    let previousSensorData = {};
+
+    function fetchSensorData() {
+        fetch("{% url 'main:sensor_data' %}")
+            .then(response => response.json())
+            .then(data => {
+                updateDivsIfDataChanged(data);
+                previousSensorData = data;
+            })
+            .catch(error => console.error('Error fetching sensor data:', error));
+    }
+
+    function updateDivsIfDataChanged(newData) {
+        let isChanged = false;
+
         for (let sensorId in newData) {
-            updateSensorDiv(sensorId, newData[sensorId]);
+            const sensorData = newData[sensorId];
+            const previousData = previousSensorData[sensorId];
+
+            if (!previousData || JSON.stringify(sensorData) !== JSON.stringify(previousData)) {
+                isChanged = true;
+            }
+        }
+
+        if (isChanged) {
+            for (let sensorId in newData) {
+                updateSensorDiv(sensorId, newData[sensorId]);
+            }
         }
     }
-}
 
-function updateSensorDiv(sensorId, sensorData) {
-    const sensorDiv = document.getElementById(`sensor-${sensorId}`);
-    if (sensorDiv) {
-        // Update sensor status and value elements
-        const statusElement = sensorDiv.querySelector(".sensor-status");
-        if (statusElement) {
-            statusElement.textContent = sensorData.status;
+    function updateSensorDiv(sensorId, sensorData) {
+        const sensorDiv = document.getElementById(`sensor-${sensorId}`);
+        if (sensorDiv) {
+            const statusElement = sensorDiv.querySelector(".sensor-status");
+            if (statusElement) {
+                statusElement.textContent = sensorData.status;
+            }
+
+            const valueElement = sensorDiv.querySelector(".sensor-value");
+            if (valueElement) {
+                valueElement.textContent = sensorData.value;
+            }
+
+            sensorDiv.classList.remove("bg-blue", "bg-orange");
+            if (sensorData.value == 1 && sensorData.name === "PIN_1_BLUE") {
+                sensorDiv.classList.add("bg-blue");
+            } 
+            if (sensorData.value == 1 && sensorData.name === "PIN_2_ORANGE") {
+                sensorDiv.classList.add("bg-orange");
+            }
+
+            if (sensorData.status == "high" && sensorData.name == "D_LED_ORANGE") {
+                sensorDiv.classList.add("bg-orange");
+            }
+
+            if (sensorData.status == "high" && sensorData.name === "D_LED_BLUE") {
+                sensorDiv.classList.add("bg-blue");
+            }
+
+            const alpha = sensorData.value / 255;
+            sensorDiv.style.backgroundColor = "";
+
+            if (sensorData.name === "A_LED_VERDE") {
+                sensorDiv.style.backgroundColor = `rgba(0, 255, 0, ${alpha})`;
+            } else if (sensorData.name === "A_LED_ROSU") {
+                sensorDiv.style.backgroundColor = `rgba(255, 0, 0, ${alpha})`;
+            }
         }
-
-        const valueElement = sensorDiv.querySelector(".sensor-value");
-        if (valueElement) {
-            valueElement.textContent = sensorData.value;
-        }
-
-        // Update background color based on conditions
-        sensorDiv.classList.remove("bg-blue", "bg-orange");
-        if (sensorData.value == 1 && sensorData.name === "PIN_1_BLUE") {
-            sensorDiv.classList.add("bg-blue");
-        } 
-        if (sensorData.value == 1 && sensorData.name === "PIN_2_ORANGE") {
-            sensorDiv.classList.add("bg-orange");
-        }
-
-                if (sensorData.status == "high" && sensorData.name == "D_LED_ORANGE") {
-            sensorDiv.classList.add("bg-orange");
-        }
-
-                if (sensorData.status =="high" && sensorData.name === "D_LED_BLUE") {
-            sensorDiv.classList.add("bg-blue");
-        }
-
-
-
-
-
-         const alpha = sensorData.value / 255;
-
-        // Clear existing background classes
-        sensorDiv.style.backgroundColor = ""; // Reset background color if needed
-
-        // Update background color with dynamic transparency
-        if (sensorData.name === "A_LED_VERDE") {
-            // Green color with variable opacity
-            sensorDiv.style.backgroundColor = `rgba(0, 255, 0, ${alpha})`;
-        } else if (sensorData.name === "A_LED_ROSU") {
-            // Red color with variable opacity
-            sensorDiv.style.backgroundColor = `rgba(255, 0, 0, ${alpha})`;
-        }
-                
-
-       
-
     }
-}
 
-// Poll every 2 seconds for faster updates
-setInterval(fetchSensorData, 1800);
-
-</script>
-
+    setInterval(fetchSensorData, 1800);
+    </script>
 </body>
 </html>

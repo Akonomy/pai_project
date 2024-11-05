@@ -1,72 +1,86 @@
 /*//////////////////////////////////////////////////////////////////
-[ Dashboard Styling with Navy Blue Theme ]
+[ Dashboard Styling with Navy Blue Dark Theme and Updated Classes ]
 */
 
-/* Sidebar */
-.sidebar {
-  background-color: #003366; /* Navy blue background */
-  height: 100vh;
-  padding-top: 1rem;
+/* General Body and Container Styling */
+.dashboard-body {
+  background-color: #121212; /* Dark background for the entire page */
+  color: #dcdcdc; /* Gainsboro for readability */
+  font-family: Poppins-Regular;
 }
 
-.sidebar .nav-link {
-  color: #ffffff; /* White for better contrast */
-  font-family: Poppins-Regular;
+.dashboard-container {
+  padding: 0;
+}
+
+/* Sidebar */
+.sidebar-navigation {
+  background-color: #1a1a1a; /* Darker navy blue for sidebar */
+  height: 100vh;
+}
+
+.sidebar-title {
+  color: #b0c4de; /* Light Steel Blue */
+  font-family: Poppins-Bold;
+}
+
+.sidebar-menu .menu-item .menu-link {
+  color: #b0c4de;
   font-size: 15px;
 }
 
-.sidebar .nav-link:hover,
-.sidebar .nav-link.active {
-  background-color: #004080; /* Slightly lighter navy for hover */
+.sidebar-menu .menu-item .menu-link:hover,
+.sidebar-menu .menu-item .menu-link.active {
+  background-color: #2c3e50; /* Slightly lighter navy */
   color: #ffffff;
   font-weight: bold;
-}
-
-.sidebar-sticky h4 {
-  color: #ffffff;
+  border-radius: 4px;
 }
 
 /* Main Content Header */
 .main-header {
-  background-color: #004080;
-  color: #ffffff;
+  background-color: #2c3e50; /* Dark slate blue for header */
+  color: #dcdcdc;
   padding: 1rem;
   font-family: Poppins-Bold;
 }
 
+.welcome-message {
+  color: #b0c4de; /* Light Steel Blue for consistency */
+}
+
 /* Card Style for Info Panels */
-.card {
+.info-panel .card {
+  background-color: #1f1f1f; /* Dark gray background for cards */
   border: none;
   border-radius: 8px;
+  color: #dcdcdc;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6); /* Deeper shadow */
 }
 
 .card .card-title {
   font-family: Poppins-Bold;
-  color: #003366;
+  color: #b0c4de;
 }
 
-.card-body {
+.card .card-text {
   font-family: Poppins-Regular;
-  color: #666666;
-}
-
-.card.shadow-sm {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #a9a9a9; /* Darker gray text for readability */
 }
 
 .card a {
-  color: #004080;
+  color: #6699cc; /* Muted blue for links */
   text-decoration: none;
 }
 
 .card a:hover {
-  color: #00264d; /* Darker shade for hover */
+  color: #4b759b; /* Darker blue for hover */
   text-decoration: underline;
 }
 
 /* Button Styling */
 .btn-primary {
-  background-color: #004080;
+  background-color: #003366;
   border: none;
   color: #ffffff;
   font-family: Montserrat-Bold;
@@ -74,58 +88,104 @@
 }
 
 .btn-primary:hover {
-  background-color: #003366;
+  background-color: #002244;
 }
 
 .btn-secondary {
-  background-color: #666666;
+  background-color: #4d4d4d;
   border: none;
   color: #ffffff;
   font-family: Montserrat-Bold;
 }
 
 .btn-secondary:hover {
-  background-color: #4d4d4d;
+  background-color: #333333;
+}
+
+/* Section Titles */
+.section-title {
+  color: #b0c4de;
+  font-family: Poppins-Bold;
+  margin-bottom: 1rem;
+}
+
+/* Card Style for Square-Like Look */
+.sensor-card {
+  height: 250px; /* Set a fixed height to make it more square */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1f1f1f; /* Dark background for cards */
+  border: none;
+  border-radius: 0; /* Remove rounding for square edges */
+  color: #dcdcdc;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6); /* Strong shadow for emphasis */
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Adjusting the Card Title and Body for Square Design */
+.sensor-card .card-title {
+  font-size: 18px; /* Slightly larger title for readability */
+  color: #b0c4de;
+  font-family: Poppins-Bold;
+  margin-bottom: 0.5rem;
+}
+
+.sensor-card .card-body p {
+  margin: 0; /* Remove margin around text for compact look */
+}
+
+/* Dynamic Background Colors */
+.bg-blue {
+  background-color: rgba(0, 191, 255, 0.2); /* Cyan with slight transparency */
+  color: #ffffff;
+  transition: background-color 0.4s;
+}
+
+.bg-orange {
+  background-color: rgba(255, 140, 0, 0.2); /* Orange with slight transparency */
+  color: #ffffff;
+  transition: background-color 0.4s;
+}
+
+/* Sensor Status Styling */
+.status-high {
+  color: #00ff00; /* Bright green for high status */
+}
+
+.status-low {
+  color: #ff6347; /* Tomato red for low status */
+}
+
+/* Range Slider */
+.range-slider {
+  width: 100%;
+  accent-color: #003366; /* Navy for slider accent */
+}
+
+
+
+.analog-value-display, .digital-control {
+  color: #a9a9a9;
+  font-size: 14px;
+  margin-top: 0.5rem; /* Space between elements */
 }
 
 /* Typography Adjustments */
 h1, h2, h3, h4, h5, h6 {
-  color: #003366; /* Navy blue for headings */
+  color: #b0c4de; /* Light Steel Blue for headings */
 }
 
-a, p {
-  color: #666666;
+p, a {
+  color: #a9a9a9; /* Darker gray text */
 }
 
 a:hover {
-  color: #004080; /* Navy blue hover for links */
+  color: #6699cc; /* Muted blue hover for links */
 }
 
-
-
-
-
-/* dashboard.css */
-.bg-blue {
-    background-color: cyan !important;
-    color: white; /* Optional: ensure text is readable */
-}
-
-.bg-orange {
-    background-color: orange !important;
-    color: white; /* Optional: ensure text is readable */
-}
-
-
-/* dashboard.css */
-.bg-blue {
-    background-color: rgba(0, 255, 255, 0); /* Initial transparent color */
-    color: white;
-    transition: background-color 0.4s; /* Optional: smooth transition */
-}
-
-.bg-orange {
-    background-color: rgba(255, 165, 0, 0); /* Initial transparent color */
-    color: white;
-    transition: background-color 0.4s; /* Optional: smooth transition */
+/* Enhanced Shadows */
+.shadow-lg {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8); /* Stronger shadow */
 }
