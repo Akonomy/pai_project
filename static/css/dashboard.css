@@ -1,11 +1,11 @@
 /*//////////////////////////////////////////////////////////////////
-[ Dashboard Styling with Navy Blue Dark Theme and Updated Classes ]
-*/
+[ Dashboard Styling with Navy Blue Dark Theme and Organized Components ]
+//////////////////////////////////////////////////////////////////*/
 
 /* General Body and Container Styling */
 .dashboard-body {
-  background-color: #121212; /* Dark background for the entire page */
-  color: #dcdcdc; /* Gainsboro for readability */
+  background-color: #121212;
+  color: #dcdcdc;
   font-family: Poppins-Regular;
 }
 
@@ -13,14 +13,16 @@
   padding: 0;
 }
 
-/* Sidebar */
+/*//////////////////////////////////////////////////////////////////
+[ Sidebar Styling ]
+//////////////////////////////////////////////////////////////////*/
 .sidebar-navigation {
-  background-color: #1a1a1a; /* Darker navy blue for sidebar */
+  background-color: #1a1a1a;
   height: 100vh;
 }
 
 .sidebar-title {
-  color: #b0c4de; /* Light Steel Blue */
+  color: #b0c4de;
   font-family: Poppins-Bold;
 }
 
@@ -31,31 +33,35 @@
 
 .sidebar-menu .menu-item .menu-link:hover,
 .sidebar-menu .menu-item .menu-link.active {
-  background-color: #2c3e50; /* Slightly lighter navy */
+  background-color: #2c3e50;
   color: #ffffff;
   font-weight: bold;
   border-radius: 4px;
 }
 
-/* Main Content Header */
+/*//////////////////////////////////////////////////////////////////
+[ Main Content Header Styling ]
+//////////////////////////////////////////////////////////////////*/
 .main-header {
-  background-color: #2c3e50; /* Dark slate blue for header */
+  background-color: #2c3e50;
   color: #dcdcdc;
   padding: 1rem;
   font-family: Poppins-Bold;
 }
 
 .welcome-message {
-  color: #b0c4de; /* Light Steel Blue for consistency */
+  color: #b0c4de;
 }
 
-/* Card Style for Info Panels */
+/*//////////////////////////////////////////////////////////////////
+[ Info Panel Card Styling ]
+//////////////////////////////////////////////////////////////////*/
 .info-panel .card {
-  background-color: #1f1f1f; /* Dark gray background for cards */
+  background-color: #1f1f1f;
   border: none;
   border-radius: 8px;
   color: #dcdcdc;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6); /* Deeper shadow */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
 }
 
 .card .card-title {
@@ -65,20 +71,22 @@
 
 .card .card-text {
   font-family: Poppins-Regular;
-  color: #a9a9a9; /* Darker gray text for readability */
+  color: #a9a9a9;
 }
 
 .card a {
-  color: #6699cc; /* Muted blue for links */
+  color: #6699cc;
   text-decoration: none;
 }
 
 .card a:hover {
-  color: #4b759b; /* Darker blue for hover */
+  color: #4b759b;
   text-decoration: underline;
 }
 
-/* Button Styling */
+/*//////////////////////////////////////////////////////////////////
+[ Button Styling ]
+//////////////////////////////////////////////////////////////////*/
 .btn-primary {
   background-color: #003366;
   border: none;
@@ -102,6 +110,17 @@
   background-color: #333333;
 }
 
+.btn-danger {
+  background-color: #d9534f;
+  border: none;
+  color: #ffffff;
+  font-family: Montserrat-Bold;
+}
+
+.btn-danger:hover {
+  background-color: #c9302c;
+}
+
 /* Section Titles */
 .section-title {
   color: #b0c4de;
@@ -109,83 +128,284 @@
   margin-bottom: 1rem;
 }
 
-/* Card Style for Square-Like Look */
+/*//////////////////////////////////////////////////////////////////
+[ Sensor Card Styling - Smaller Square-Like Cards ]
+//////////////////////////////////////////////////////////////////*/
 .sensor-card {
-  height: 250px; /* Set a fixed height to make it more square */
+  height: 220px; /* Reduced height for a more square shape */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #1f1f1f; /* Dark background for cards */
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #1f1f1f;
   border: none;
-  border-radius: 0; /* Remove rounding for square edges */
+  border-radius: 8px;
   color: #dcdcdc;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6); /* Strong shadow for emphasis */
-  padding: 1rem;
-  text-align: center;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.6);
+  padding: 0.8rem; /* Reduced padding */
 }
 
-/* Adjusting the Card Title and Body for Square Design */
+.card-body {
+  flex: 1; /* Allow the card body to grow and fill available space */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem; /* Reduced margin */
+}
+
 .sensor-card .card-title {
-  font-size: 18px; /* Slightly larger title for readability */
+  font-size: 16px; /* Slightly smaller title */
   color: #b0c4de;
   font-family: Poppins-Bold;
-  margin-bottom: 0.5rem;
+  margin: 0;
 }
 
 .sensor-card .card-body p {
-  margin: 0; /* Remove margin around text for compact look */
+  margin: 0;
 }
 
-/* Dynamic Background Colors */
+/*//////////////////////////////////////////////////////////////////
+[ Dynamic Background Colors for Status Indicators ]
+//////////////////////////////////////////////////////////////////*/
 .bg-blue {
-  background-color: rgba(0, 191, 255, 0.2); /* Cyan with slight transparency */
+  background-color: rgba(0, 191, 255, 0.2);
   color: #ffffff;
   transition: background-color 0.4s;
 }
 
 .bg-orange {
-  background-color: rgba(255, 140, 0, 0.2); /* Orange with slight transparency */
+  background-color: rgba(255, 140, 0, 0.2);
   color: #ffffff;
   transition: background-color 0.4s;
 }
 
-/* Sensor Status Styling */
+/*//////////////////////////////////////////////////////////////////
+[ Sensor Status Styling ]
+//////////////////////////////////////////////////////////////////*/
 .status-high {
-  color: #00ff00; /* Bright green for high status */
+  color: #00ff00;
 }
 
 .status-low {
-  color: #ff6347; /* Tomato red for low status */
+  color: #ff6347;
 }
 
-/* Range Slider */
+/*//////////////////////////////////////////////////////////////////
+[ Range Slider and Labels Styling ]
+//////////////////////////////////////////////////////////////////*/
+.range-slider-container {
+  position: relative;
+}
+
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.3rem; /* Reduced margin */
+}
+
 .range-slider {
   width: 100%;
-  accent-color: #003366; /* Navy for slider accent */
+  accent-color: #003366;
 }
 
+.range-labels .text-muted {
+  font-size: 0.8rem;
+}
 
+/*//////////////////////////////////////////////////////////////////
+[ Display Styling for Analog and Digital Values ]
+//////////////////////////////////////////////////////////////////*/
+.sensor-value-display h2 {
+  font-size: 1.8rem; /* Reduced font size */
+  color: #b0c4de;
+  margin: 0;
+}
 
 .analog-value-display, .digital-control {
   color: #a9a9a9;
   font-size: 14px;
-  margin-top: 0.5rem; /* Space between elements */
+  margin-top: 0.5rem;
 }
 
-/* Typography Adjustments */
+/*//////////////////////////////////////////////////////////////////
+[ Preset Buttons Styling ]
+//////////////////////////////////////////////////////////////////*/
+.preset-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.preset-buttons button {
+  margin: 0.2rem;
+  background-color: #666;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem; /* Reduced font size */
+  transition: background-color 0.3s;
+  flex: 1 1 auto;
+  max-width: 70px; /* Reduced max width */
+}
+
+.preset-buttons button:hover {
+  background-color: #4caf50;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Toggle Switch Styling ]
+//////////////////////////////////////////////////////////////////*/
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 20px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #4caf50;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Typography Adjustments ]
+//////////////////////////////////////////////////////////////////*/
 h1, h2, h3, h4, h5, h6 {
-  color: #b0c4de; /* Light Steel Blue for headings */
+  color: #b0c4de;
 }
 
 p, a {
-  color: #a9a9a9; /* Darker gray text */
+  color: #a9a9a9;
 }
 
 a:hover {
-  color: #6699cc; /* Muted blue hover for links */
+  color: #6699cc;
 }
 
 /* Enhanced Shadows */
 .shadow-lg {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+}
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Digital Outputs Styling ]
+//////////////////////////////////////////////////////////////////*/
+
+/* Slider Container */
+.slider-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Large Fancy Slider */
+.switch.large-switch {
+  position: relative;
+  display: inline-block;
+  width: 80px;   /* Increased width for larger slider */
+  height: 40px;  /* Increased height for larger slider */
+  margin-top: 10px;
+}
+
+/* Hide default checkbox */
+.switch.large-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider.round {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 40px;
+}
+
+/* Slider before */
+.slider.round:before {
+  position: absolute;
+  content: "";
+  height: 34px;   /* Adjusted for larger slider */
+  width: 33px;    /* Adjusted for larger slider */
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+/* Checked state */
+.switch.large-switch input:checked + .slider.round {
+  background-color: #4caf50;
+}
+
+/* Move the slider when checked */
+.switch.large-switch input:checked + .slider.round:before {
+  transform: translateX(40px);  /* Adjusted for larger slider */
+}
+
+/* Lock Icon Container */
+.lock-icon-container {
+  display: flex;
+  align-items: center;
+}
+
+/* Adjust the size and color of lock icons */
+.lock-icon-container .fa-lock {
+  font-size: 2.5rem;  /* Adjust as needed */
+}
+
+/* Text Colors for Blue and Orange */
+.text-blue {
+  color: #007bff;
+}
+
+.text-orange {
+  color: #ff8800;
 }
