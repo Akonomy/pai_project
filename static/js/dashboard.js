@@ -1,6 +1,6 @@
 // Command Functions
 function sendPresetValue(sensorId, value) {
-      // document.getElementById(`value-display-${sensorId}`).innerText = value; // Update display with preset value
+       //document.getElementById(`value-display-${sensorId}`).innerText = value; // Update display with preset value
        // document.querySelector(`#sensor-${sensorId} .range-slider`).value = value; 
         updateValueDisplay(sensorId, value);
 
@@ -176,10 +176,33 @@ function updateSensorStyles(sensorDiv, sensorId, sensorData) {
     const alpha = sensorData.value / 255;
     sensorDiv.style.backgroundColor = "";
 
+   
+    // Interpolate colors for sensor_3 (warm orange to cold blue)
     if (sensorId === "sensor_3") {
-        sensorDiv.style.backgroundColor = `rgba(0, 255, 0, ${alpha})`;
-    } else if (sensorId === "sensor_4") {
-        sensorDiv.style.backgroundColor = `rgba(255, 0, 0, ${alpha})`;
+        const startColor = { r: 199, g: 125, b: 73 }; // Warm orange
+        const endColor = { r: 15, g: 138, b: 100 }; // Cold blue
+
+        const blendedColor = {
+            r: Math.round(startColor.r * (1 - alpha) + endColor.r * alpha),
+            g: Math.round(startColor.g * (1 - alpha) + endColor.g * alpha),
+            b: Math.round(startColor.b * (1 - alpha) + endColor.b * alpha),
+        };
+
+        sensorDiv.style.backgroundColor = `rgba(${blendedColor.r}, ${blendedColor.g}, ${blendedColor.b}, ${alpha})`;
+    }
+
+    // Interpolate colors for sensor_4 (cold blue to hot red)
+    else if (sensorId === "sensor_4") {
+        const startColor = { r: 15, g: 89, b: 120 }; // Cold blue
+        const endColor = { r: 38, g: 0, b: 0 }; // Hot red
+
+        const blendedColor = {
+            r: Math.round(startColor.r * (1 - alpha) + endColor.r * alpha),
+            g: Math.round(startColor.g * (1 - alpha) + endColor.g * alpha),
+            b: Math.round(startColor.b * (1 - alpha) + endColor.b * alpha),
+        };
+
+        sensorDiv.style.backgroundColor = `rgba(${blendedColor.r}, ${blendedColor.g}, ${blendedColor.b}, ${alpha})`;
     }
 }
 

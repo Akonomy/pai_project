@@ -53,9 +53,9 @@
 
                                 <h5 class="card-title">Account Status</h5>
                                 
-                                <p><strong>Membership:</strong> Active</p>
-                                <p><strong>Last Login:</strong> {{ request.user.last_login }}</p>
-                                <p><strong>Email:</strong> {{ request.user.email }}<br><br></p>
+                                <p><strong>  Membership:</strong> Active</p>
+                                <p><strong>  Last Login:</strong> {{ request.user.last_login }}</p>
+                                <p><strong>  Email:</strong> {{ request.user.email }}<br><br></p>
                            
              
                 
@@ -68,8 +68,8 @@
                     
                         
                            
-                                <h5 class="card-title">Notifications</h5>
-                                <p class="card-text">Stay up-to-date with recent updates.</p>
+                                <h5 class="card-title">  Notifications</h5>
+                                <p class="card-text">    Stay up-to-date with recent updates.</p>
                                 <ul class="list-unstyled notifications-list">
 
                                 </ul>
@@ -109,10 +109,7 @@
                         <!-- Sensor Name and Activation Slider -->
                         <div class="d-flex justify-content-between align-items-center">
                             <h5 class="card-title">{{ sensor.name }}</h5>
-                            <label class="switch">
-                                <input type="checkbox" onchange="toggleSensor('{{ sensor.id }}', this.checked)">
-                                <span class="slider round"></span>
-                            </label>
+                            
                         </div>
 
                         <!-- Sensor Value Display -->
