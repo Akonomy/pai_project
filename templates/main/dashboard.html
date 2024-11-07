@@ -46,31 +46,31 @@
                             </a>
                         </li>
 
-                                        <li>
+                                        <li class="nav-item menu-item">
                                             <br><br>
                     
                     
 
-                                <h5 class="card-title">Account Status</h5>
+                                <h5 class=" text-center">Account Status</h5>
                                 
-                                <p><strong>  Membership:</strong> Active</p>
-                                <p><strong>  Last Login:</strong> {{ request.user.last_login }}</p>
-                                <p><strong>  Email:</strong> {{ request.user.email }}<br><br></p>
+                                <p  class="text-15left"><strong>  Membership:</strong> Active</p>
+                            <p class="text-15left"><strong>  Last Login:</strong> {{ request.user.last_login }}</p>
+                                <p class="text-15left"><strong>  Email:</strong> {{ request.user.email }}<br><br></p>
                            
              
                 
                 </li>
 
 
-                        <li>                <!-- Info Panels Section -->
+                        <li class="nav-item menu-item"> 
                 
                     <!-- Notifications Panel -->
                     
                         
                            
-                                <h5 class="card-title">  Notifications</h5>
-                                <p class="card-text">    Stay up-to-date with recent updates.</p>
-                                <ul class="list-unstyled notifications-list">
+                                <h5 class="card-title text-center">  Notifications</h5>
+                                <p class="text-15left">    Stay updated </p>
+                                <ul class="list-unstyled notifications-list  text-15left">
 
                                 </ul>
                             
@@ -123,7 +123,7 @@
                                     {% endif %}
                                 </span>
                             {% elif sensor.id == 'sensor_4' %}
-                                <span id="value-display-{{ sensor.id }}" class="analog-value-display">
+                                <span id="value-display-{{ sensor.id }}" class="analog-value-display big-gradient-text">
                                     {% if sensor.value == 0 %}
                                         OFF
                                     {% else %}

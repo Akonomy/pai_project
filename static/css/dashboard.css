@@ -346,6 +346,12 @@ a:hover {
   color: #ff8800;
 }
 
+.text-15left {
+
+  
+  margin-left: 15px;
+}
+
 
 
 
@@ -426,7 +432,7 @@ a:hover {
 }
 
 .lock-icon {
-    font-size: 3.5rem;
+    font-size: 5.5rem;
     transition: color 0.3s ease, opacity 0.3s ease;
 }
 
@@ -443,4 +449,10 @@ a:hover {
 .lock-invisible {
     opacity: 0;
     pointer-events: none; /* Prevent interaction when invisible */
+}
+
+
+.big-gradient-text{
+font-size: 40px;
+
 }

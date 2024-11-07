@@ -98,22 +98,78 @@ function updateSensorDiv(sensorId, sensorData) {
         updateValueDisplay(sensorId, sensorData.value); // Use sensorData.value instead of undefined value
 
         // Add notifications based on changes
-        if (previousData.status !== sensorData.status) {
-            const action = sensorData.status === "high" ? "activated" : "deactivated";
-            addNotification(
-                "warning",
-                `Sensor ${sensorId}`,
-                `was ${action}.`
-            );
-        }
+if (previousData.status !== sensorData.status) {
+    const action = sensorData.status === "high" ? "LOCKED" : "UNLOCKED";
+    let customMessage;
 
-        if (previousData.value !== sensorData.value) {
-            addNotification(
-                "info",
-                `Sensor ${sensorId}`,
-                `value set to ${sensorData.value}.`
-            );
-        }
+    // Custom messages for specific sensors
+    switch (sensorId) {
+        case "sensor_1":
+            customMessage = `OFFICE DOOR IS  ${action}`;
+             addNotification("warning", ``, customMessage);
+            break;
+        case "sensor_2":
+            customMessage = `MAIN DOOR IS ${action}`;
+             addNotification("warning", ``, customMessage);
+            break;
+        case "sensor_5":
+            customMessage = `Custom message for Sensor 5: ${action}`;
+            break;
+        case "sensor_6":
+            customMessage = `Custom message for Sensor 6: ${action}`;
+            break;
+        case "sensor_8":
+            customMessage = `OFFICE  ${action}`;
+             addNotification("warning", ``, customMessage);
+            break;
+        case "sensor_9":
+            customMessage = `MAIN ${action}`;
+             addNotification("warning", ``, customMessage);
+            break;
+        default:
+            customMessage = ``;
+    }
+
+   
+}
+
+if (previousData.value !== sensorData.value) {
+    let customValueMessage;
+
+    // Custom value messages for specific sensors
+    switch (sensorId) {
+        case "out_sensor_1":
+            customValueMessage = `  ${sensorData.value}.`;
+            break;
+        case "out_sensor_2":
+            customValueMessage = ` ${sensorData.value}.`;
+            break;
+        case "sensor_3":
+            customValueMessage = `LIGHT CHANGED `;
+            if(sensorData.value==0){
+                customValueMessage = `LIGHT OFF `;
+            }
+            addNotification("info", ``, customValueMessage);
+            break;
+        case "sensor_4":
+            customValueMessage = `TEMPERATURE CHANGED `;
+            if(sensorData.value==0){
+                customValueMessage = `AIR CONDITIONER OFF `;
+            }
+            addNotification("info", ``, customValueMessage);
+            break;
+        case "out_sensor_8":
+            customValueMessage = `Sensor 8 value adjusted to ${sensorData.value}.`;
+            break;
+        case "out_sensor_9":
+            customValueMessage = `Sensor 9 updated with value ${sensorData.value}.`;
+            break;
+        default:
+            customValueMessage = ``;
+    }
+
+    
+}
     }
 }
 
