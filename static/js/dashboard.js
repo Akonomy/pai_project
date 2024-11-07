@@ -1,66 +1,4 @@
 
-(function ($) {
-    "use strict";
-
-    
-    /*==================================================================
-    [ Validate ]*/
-    var input = $('.validate-input .input100');
-
-    $('.validate-form').on('submit',function(){
-        var check = true;
-
-        for(var i=0; i<input.length; i++) {
-            if(validate(input[i]) == false){
-                showValidate(input[i]);
-                check=false;
-            }
-        }
-
-        return check;
-    });
-
-
-    $('.validate-form .input100').each(function(){
-        $(this).focus(function(){
-           hideValidate(this);
-        });
-    });
-
-    function validate (input) {
-        if($(input).attr('type') == 'email' || $(input).attr('name') == 'email') {
-            if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-                return false;
-            }
-        }
-        else {
-            if($(input).val().trim() == ''){
-                return false;
-            }
-        }
-    }
-
-    function showValidate(input) {
-        var thisAlert = $(input).parent();
-
-        $(thisAlert).addClass('alert-validate');
-    }
-
-    function hideValidate(input) {
-        var thisAlert = $(input).parent();
-
-        $(thisAlert).removeClass('alert-validate');
-    }
-    
-    
-
-})(jQuery);
-
-
-
-
-
-
 
 //SCRIPTS   
 
@@ -110,6 +48,7 @@ function sendAnalogValue(sensorId, value) {
 
 let previousSensorData = {};
 
+
 function fetchSensorData() {
     fetch(sensorDataUrl)
         .then(response => response.json())
@@ -153,30 +92,39 @@ function updateSensorDiv(sensorId, sensorData) {
         }
 
         sensorDiv.classList.remove("bg-blue", "bg-orange");
-        if (sensorData.value == 1 && sensorData.name === "PIN_1_BLUE") {
+
+
+      // Set background color based on sensor ID
+        if (sensorData.status == "high" && sensorId === "sensor_1") {
             sensorDiv.classList.add("bg-blue");
-        } 
-        if (sensorData.value == 1 && sensorData.name === "PIN_2_ORANGE") {
+        }
+        if (sensorData.status == "high" && sensorId === "sensor_2") {
             sensorDiv.classList.add("bg-orange");
         }
 
-        if (sensorData.status == "high" && sensorData.name == "D_LED_ORANGE") {
-            sensorDiv.classList.add("bg-orange");
-        }
-
-        if (sensorData.status == "high" && sensorData.name === "D_LED_BLUE") {
+        // Set background color based on sensor ID
+        if (sensorData.value == 1 && sensorId === "sensor_9") {
             sensorDiv.classList.add("bg-blue");
+        }
+        if (sensorData.value == 1 && sensorId === "sensor_8") {
+            sensorDiv.classList.add("bg-orange");
         }
 
         const alpha = sensorData.value / 255;
         sensorDiv.style.backgroundColor = "";
 
-        if (sensorData.name === "A_LED_VERDE") {
+        if (sensorId === "sensor_3") {
             sensorDiv.style.backgroundColor = `rgba(0, 255, 0, ${alpha})`;
-        } else if (sensorData.name === "A_LED_ROSU") {
+        } else if (sensorId === "sensor_4") {
             sensorDiv.style.backgroundColor = `rgba(255, 0, 0, ${alpha})`;
         }
     }
 }
+
+
+
+
+
+
 
 setInterval(fetchSensorData, 1800);

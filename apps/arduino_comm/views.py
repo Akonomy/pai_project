@@ -21,7 +21,6 @@ def initialize_sensors():
                 active=False
             )
             sensor.save()
-
 @csrf_exempt
 def receive_data(request):
     if request.method == 'POST':
@@ -30,7 +29,14 @@ def receive_data(request):
 
             for key, value in data.items():
                 sensor = Sensor.objects.get(id=key)
-                sensor.value = value
+                if isinstance(value, int):
+                    sensor.value = value
+                    sensor.status = 'high' if value else 'low'
+                elif value in ['high', 'low']:
+                    sensor.status = value
+                    sensor.value = 1 if value == 'high' else 0
+                else:
+                    sensor.value = value  # Assuming it's already an integer
                 sensor.save()
             return JsonResponse({"message": "Data received"}, status=200)
         except (json.JSONDecodeError, Sensor.DoesNotExist):
