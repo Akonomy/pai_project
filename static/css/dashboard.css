@@ -4,7 +4,7 @@
 
 /* General Body and Container Styling */
 .dashboard-body {
-  background-color: #121212;
+  background-color: #1a1a1a;
   color: #dcdcdc;
   font-family: Poppins-Regular;
 }
@@ -230,6 +230,7 @@
   color: #a9a9a9;
   font-size: 14px;
   margin-top: 0.5rem;
+  width:80%;
 }
 
 /*//////////////////////////////////////////////////////////////////
@@ -252,7 +253,7 @@
   font-size: 0.75rem; /* Reduced font size */
   transition: background-color 0.3s;
   flex: 1 1 auto;
-  max-width: 70px; /* Reduced max width */
+  max-width: 90px; /* Reduced max width */
 }
 
 .preset-buttons button:hover {
@@ -332,74 +333,9 @@ a:hover {
 [ Digital Outputs Styling ]
 //////////////////////////////////////////////////////////////////*/
 
-/* Slider Container */
-.slider-container {
-  display: flex;
-  flex-direction: column;
-}
 
-/* Large Fancy Slider */
-.switch.large-switch {
-  position: relative;
-  display: inline-block;
-  width: 80px;   /* Increased width for larger slider */
-  height: 40px;  /* Increased height for larger slider */
-  margin-top: 10px;
-}
 
-/* Hide default checkbox */
-.switch.large-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
 
-/* The slider */
-.slider.round {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 40px;
-}
-
-/* Slider before */
-.slider.round:before {
-  position: absolute;
-  content: "";
-  height: 34px;   /* Adjusted for larger slider */
-  width: 33px;    /* Adjusted for larger slider */
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-/* Checked state */
-.switch.large-switch input:checked + .slider.round {
-  background-color: #4caf50;
-}
-
-/* Move the slider when checked */
-.switch.large-switch input:checked + .slider.round:before {
-  transform: translateX(40px);  /* Adjusted for larger slider */
-}
-
-/* Lock Icon Container */
-.lock-icon-container {
-  display: flex;
-  align-items: center;
-}
-
-/* Adjust the size and color of lock icons */
-.lock-icon-container .fa-lock {
-  font-size: 2.5rem;  /* Adjust as needed */
-}
 
 /* Text Colors for Blue and Orange */
 .text-blue {
@@ -408,4 +344,103 @@ a:hover {
 
 .text-orange {
   color: #ff8800;
+}
+
+
+
+
+
+
+/* Analog Outputs Slider Styling */
+.analog-slider {
+    width: 100%;
+    appearance: none;
+    height: 6px; /* Height of the slider */
+    border-radius: 12px; /* Rounded edges */
+    background: linear-gradient(90deg, #2196F3, #FF5722); /* Gradient for the track */
+    outline: none;
+    margin: 10px 0;
+    transition: background 0.3s ease; /* Smooth transition for background changes */
+}
+
+.analog-slider:hover {
+    background: linear-gradient(90deg, #1E88E5, #FF7043); /* Darker gradient on hover */
+}
+
+.analog-slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 18px; /* Thumb width */
+    height: 18px; /* Thumb height */
+    border-radius: 50%; /* Fully rounded thumb */
+    background: #FFF; /* White thumb */
+    border: 2px solid #2196F3; /* Blue border */
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s; /* Interaction effects */
+}
+
+.analog-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2); /* Slightly larger on hover */
+    background: #E3F2FD; /* Light blue hover effect */
+}
+
+.analog-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #FFF;
+    border: 2px solid #2196F3;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.analog-slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+    background: #E3F2FD;
+}
+
+.analog-slider::-ms-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #FFF;
+    border: 2px solid #2196F3;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.analog-slider::-ms-thumb:hover {
+    transform: scale(1.2);
+    background: #E3F2FD;
+}
+
+
+
+
+
+
+/* Lock Icon Styling */
+.lock-icon-container {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}
+
+.lock-icon {
+    font-size: 3.5rem;
+    transition: color 0.3s ease, opacity 0.3s ease;
+}
+
+.lock-blue {
+    color: #007bff; /* Blue */
+    opacity: 1;
+}
+
+.lock-orange {
+    color: #ff8800; /* Orange */
+    opacity: 1;
+}
+
+.lock-invisible {
+    opacity: 0;
+    pointer-events: none; /* Prevent interaction when invisible */
 }
