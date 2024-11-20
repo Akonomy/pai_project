@@ -17,6 +17,14 @@ from django.contrib import admin
 from django.urls import path, include
 from apps.main import views as main_views  # Import the main app's views
 
+from django.conf.urls import handler403, handler404, handler500
+from apps.main.views import custom_403_view, custom_404_view, custom_500_view
+
+handler403 = 'apps.main.views.custom_403_view'
+handler404 = 'apps.main.views.custom_404_view'
+handler500 = 'apps.main.views.custom_500_view'
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.main.urls')),

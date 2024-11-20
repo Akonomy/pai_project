@@ -4,7 +4,7 @@ import time
 import json
 
 # Configure the serial port for the Arduino
-PORT = "COM4"  # Update if using a different port
+PORT = "COM6"  # Update if using a different port
 BAUDRATE = 9600
 ARDUINO_TIMEOUT = 2
 

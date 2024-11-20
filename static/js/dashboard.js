@@ -99,17 +99,17 @@ function updateSensorDiv(sensorId, sensorData) {
 
         // Add notifications based on changes
 if (previousData.status !== sensorData.status) {
-    const action = sensorData.status === "high" ? "LOCKED" : "UNLOCKED";
+    const action = sensorData.status === "high" ? "LOCK" : "UNLOCK";
     let customMessage;
 
     // Custom messages for specific sensors
     switch (sensorId) {
         case "sensor_1":
-            customMessage = `OFFICE DOOR IS  ${action}`;
+            customMessage = `OFFICE DOOR IS  ${action}ING`;
              addNotification("warning", ``, customMessage);
             break;
         case "sensor_2":
-            customMessage = `MAIN DOOR IS ${action}`;
+            customMessage = `MAIN DOOR IS ${action}ING`;
              addNotification("warning", ``, customMessage);
             break;
         case "sensor_5":
@@ -119,11 +119,11 @@ if (previousData.status !== sensorData.status) {
             customMessage = `Custom message for Sensor 6: ${action}`;
             break;
         case "sensor_8":
-            customMessage = `OFFICE  ${action}`;
+            customMessage = `OFFICE  IS ${action}ED`;
              addNotification("warning", ``, customMessage);
             break;
         case "sensor_9":
-            customMessage = `MAIN ${action}`;
+            customMessage = `MAIN  IS ${action}ED`;
              addNotification("warning", ``, customMessage);
             break;
         default:
@@ -307,7 +307,7 @@ function addNotification(type, sensorName, message) {
     notificationsList.appendChild(notificationItem);
 
     // Automatically remove the notification after a delay (e.g., 10 seconds)
-    setTimeout(() => notificationItem.remove(), 5000);
+    setTimeout(() => notificationItem.remove(), 5500);
 }
 
 

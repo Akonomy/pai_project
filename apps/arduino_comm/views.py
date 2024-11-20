@@ -6,6 +6,20 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Sensor
 import json
 
+from django.core.exceptions import PermissionDenied
+from django.contrib.auth.decorators import user_passes_test, login_required
+
+
+
+
+    
+def superuser_required(user):
+    if not user.is_superuser:
+        raise PermissionDenied
+    return True
+
+
+
 # Initialize sensors
 def initialize_sensors():
     for i in range(10):
@@ -89,6 +103,9 @@ def configure_sensor(request):
             return JsonResponse({"error": "Invalid JSON or Sensor not found", "details": str(e)}, status=400)
     return JsonResponse({"error": "Only POST requests are accepted"}, status=400)
 
+
+@user_passes_test(superuser_required)
+@login_required
 def control_page(request):
     """Render the control page for interacting with Arduino"""
     initialize_sensors()

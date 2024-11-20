@@ -177,6 +177,29 @@
   color: #ffffff;
   transition: background-color 0.4s;
 }
+.bg-dark {
+  background-color: pink ;
+  transition: background-color 0.4s;
+}
+  .bg-dark1 {
+            background-color: #171e21;
+            transition: background-color 0.4s;
+            color: #ffffff; /* Ensure text is visible */
+            font-size: 1.5rem; /* Make text larger */
+            padding: 2rem; /* Add padding for better spacing */
+            border-radius: 10px; /* Smooth corners */
+            width: 100%; /* Take up full width */
+            max-width: 100%; /* Prevent extra constraints */
+        }
+
+        .bg-dark1 .card-body {
+            text-align: center;
+        }
+
+.info-profile1{
+
+font-size: 1.5rem
+}
 
 .bg-orange {
   background-color: rgba(255, 140, 0, 0.2);
@@ -253,7 +276,7 @@
   font-size: 0.75rem; /* Reduced font size */
   transition: background-color 0.3s;
   flex: 1 1 auto;
-  max-width: 90px; /* Reduced max width */
+  max-width: 100px; /* Reduced max width */
 }
 
 .preset-buttons button:hover {
