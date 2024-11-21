@@ -39,6 +39,14 @@ function sendDigitalCommand(sensorId, status) {
     .then(data => console.log(data.message || "Command sent successfully"));
 }
 
+function sendAnalogValueDebounced(sensorId, value) {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(() => {
+        sendAnalogValue(sensorId, value); // Call the server update function after debounce delay
+    }, 200); // Debounce delay
+}
+
+
 function sendAnalogValue(sensorId, value) {
     //document.getElementById(`value-display-${sensorId}`).innerText = value;
     updateValueDisplay(sensorId, value);

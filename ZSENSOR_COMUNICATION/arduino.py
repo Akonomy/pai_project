@@ -1,26 +1,44 @@
 import serial
+import serial.tools.list_ports
 import requests
 import time
 import json
-
-# Configure the serial port for the Arduino
-PORT = "COM6"  # Update if using a different port
-BAUDRATE = 9600
-ARDUINO_TIMEOUT = 2
 
 # Django server configuration
 DJANGO_FETCH_URL = "http://127.0.0.1:8000/fetch/"  # Django API endpoint to fetch data
 DJANGO_UPDATE_URL = "http://127.0.0.1:8000/receive/"  # Django API endpoint to receive sensor updates
 
-# Initialize serial communication if available
+def find_arduino_port():
+    """Search for the Arduino's COM port."""
+    ports = serial.tools.list_ports.comports()
+    for port in ports:
+        try:
+            # Attempt to connect to the port
+            with serial.Serial(port.device, 9600, timeout=2) as ser:
+                print(f"Found potential port: {port.device}")
+                time.sleep(2)  # Allow time for Arduino to reset
+                if ser.is_open:
+                    ser.write(b'ping\n')  # Optionally send a handshake signal
+                    response = ser.readline().decode('utf-8').strip()
+                    if response:  # If the Arduino responds
+                        print(f"Arduino found at {port.device}")
+                        return port.device
+        except (serial.SerialException, OSError) as e:
+            pass  # Ignore and continue
+    print("No Arduino detected on available COM ports.")
+    return None
+
+# Find the Arduino port
+arduino_port = find_arduino_port()
 arduino_serial = None
-try:
-    arduino_serial = serial.Serial(PORT, BAUDRATE, timeout=ARDUINO_TIMEOUT)
-    if arduino_serial.is_open:
-        print(f"Serial port {PORT} opened successfully.")
-except serial.SerialException as e:
-    print("Warning: Could not open serial port. Running in simulation mode.")
-    arduino_serial = None
+
+if arduino_port:
+    try:
+        arduino_serial = serial.Serial(arduino_port, 9600, timeout=2)
+        if arduino_serial.is_open:
+            print(f"Serial port {arduino_port} opened successfully.")
+    except serial.SerialException as e:
+        print(f"Error: Could not open serial port {arduino_port}.", e)
 
 def fetch_data_from_django():
     """Fetch latest sensor data from Django API and display it."""
@@ -48,10 +66,8 @@ def send_command_to_arduino(command):
         except Exception as e:
             print("Error sending command to Arduino:", e)
 
-
-    """Send sensor data to Django API."""
 def send_data_to_django(sensor_data):
-    # Map 'high'/'low' to integers
+    """Send sensor data to Django API."""
     value_mapping = {'high': 1, 'low': 0}
     processed_data = {}
     for key, value in sensor_data.items():
