@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-=5kpns*l_l@*(q6-7c%8!ue&0u4g4+^sdsi_h60lm2va(co@l=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['192.168.10.164','127.0.0.1','myapp','10.11.1.122', '10.11.1.125']
+ALLOWED_HOSTS = ['django-plan-pai-e5f2gvhthcapgag5.canadacentral-01.azurewebsites.net/','192.168.10.164','127.0.0.1','myapp','10.11.1.122', '10.11.1.125']
 
 
 # Application definition
