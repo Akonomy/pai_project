@@ -31,7 +31,6 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 
 # Application definition
-django_heroku.settings(locals())
 
 
 
@@ -177,3 +176,6 @@ LOGOUT_REDIRECT_URL = '/login/'  # Redirect after logout
 
 
 AUTH_USER_MODEL = 'main.CustomUser'
+
+
+django_heroku.settings(locals())
