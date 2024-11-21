@@ -27,7 +27,11 @@ void loop() {
   // Check for incoming commands
   if (Serial.available() > 0) {
     String command = Serial.readStringUntil('\n');  // Read the incoming command until newline
-    handleCommand(command);  // Process the command
+    if (command == "ping") {  // Handshake signal from Python
+      Serial.println("pong");
+    } else {
+      handleCommand(command);  // Process other commands
+    }
   }
 
   // Monitor sensor state changes and send updates

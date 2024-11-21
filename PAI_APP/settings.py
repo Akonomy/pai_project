@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+from decouple import config, Csv
 from pathlib import Path
 import os
 
@@ -21,13 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-=5kpns*l_l@*(q6-7c%8!ue&0u4g4+^sdsi_h60lm2va(co@l='
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['django-plan-pai-e5f2gvhthcapgag5.canadacentral-01.azurewebsites.net/','192.168.10.164','127.0.0.1','myapp','10.11.1.122', '10.11.1.125']
-
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1', cast=Csv())
 
 # Application definition
 
@@ -56,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -88,14 +87,28 @@ WSGI_APPLICATION = 'PAI_APP.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'pai',  # Replace with your database name
+#     }
+# }
+
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'pai',  # Replace with your database name
+        'NAME': config('MONGO_DB_NAME'),
+        'CLIENT': {
+            'host': config('MONGO_HOST'),
+            'username': config('MONGO_USERNAME'),
+            'password': config('MONGO_PASSWORD'),
+        }
     }
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -159,3 +172,6 @@ LOGIN_URL = '/login/'  # Redirect here if not logged in
 
 LOGIN_REDIRECT_URL = '/dashboard/'  # Where to redirect after successful login
 LOGOUT_REDIRECT_URL = '/login/'  # Redirect after logout
+
+
+AUTH_USER_MODEL = 'main.CustomUser'

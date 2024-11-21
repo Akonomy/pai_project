@@ -1,3 +1,6 @@
-from django.db import models
+from djongo import models
+from bson.objectid import ObjectId
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
+class CustomUser(AbstractUser):
+    id = models.ObjectIdField(primary_key=True, default=ObjectId)
