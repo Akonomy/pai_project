@@ -11,4 +11,6 @@ urlpatterns = [
     path('fetch/', views.fetch_sensor_data, name='fetch_sensor_data'),
     path('active_sensors/', views.active_sensors_page, name='active_sensors_page'),
     path('save_sensors/', views.save_sensors, name='save_sensors'),
+    path('reset-sensors/', views.reset_sensors, name='reset_sensors'),
+
 ]

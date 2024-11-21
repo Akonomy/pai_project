@@ -88,7 +88,38 @@
     </div>
 </div>
 
+<button id="resetSensorsButton">Reset Sensors</button>
+
+
+
 <script>
+
+
+
+        document.getElementById('resetSensorsButton').addEventListener('click', function () {
+        if (confirm("Are you sure you want to reset all sensors?")) {
+            fetch("{% url 'arduino_comm:reset_sensors' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    location.reload();  // Refresh the page to reflect changes
+                } else {
+                    alert("Error: " + data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    });
+
+
+
+
 // Toggle sensor active status and update box color
 $(".sensor-active-toggle").on("change", function() {
     const sensorId = $(this).data("id");
