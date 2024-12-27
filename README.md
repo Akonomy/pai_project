@@ -2,127 +2,198 @@
 
 ## Overview
 
-This project is a Django-based web application that integrates with an Arduino for automating home utilities such as lights and air conditioning. The project simulates control through a web interface and provides feedback on the status of connected devices.
-
-### Key Components
-
-#### 1. `PAI_APP/`
-This folder contains the main Django configuration files:
-- **`settings.py`**: Global settings for database, static files, and installed apps.
-- **`urls.py`**: Routes that connect URLs to views across the project.
-- **`wsgi.py`**: Configuration for running the application on WSGI servers.
-
-#### 2. `apps/`
-Contains the individual Django apps that encapsulate distinct functionalities:
-- **`main/`**: Manages user-related functionality such as login, registration, and the dashboard.
-  - Contains templates for user-facing pages like `login.html`, `register.html`, and `dashboard.html`.
-- **`arduino_comm/`**: Focused on communication with the Arduino and sensor configurations.
-  - Provides REST APIs for sending and receiving data to/from the Arduino.
-
-#### 3. `static/`
-Includes resources for the web interface:
-- **`css/`**: Styling files.
-- **`js/`**: JavaScript for interactivity.
-- **`images/`**: Visual assets for the UI.
-
-#### 4. `templates/`
-HTML templates for the application:
-- **`main/`**: Login, profile, and dashboard pages.
-- **`arduino_comm/`**: Pages for managing sensors and controls.
-
-#### 5. `ZSENSOR_COMUNICATION/`
-This folder contains scripts for Arduino integration:
-- **`arduino.py`**: Handles serial communication with the Arduino.
-- **`arduino_script.ino`**: The Arduino firmware for managing sensors and devices.
-- **`simulator.py`**: A Python-based simulator for testing without physical hardware.
-
-#### 6. Other Important Files
-- **`manage.py`**: Django management script for running the server and managing migrations.
-- **`requirements.txt`**: List of dependencies needed for the project.
-- **`db.sqlite3`**: SQLite database file for storing project data.
+**PAI_Project** este o aplicație web dezvoltată cu Django, destinată automatizării utilităților casnice. Proiectul permite controlul dispozitivelor precum iluminatul și aerul condiționat printr-o interfață web, oferind și feedback asupra stării dispozitivelor conectate. Integrarea cu Arduino facilitează interacțiunea directă cu componentele hardware.
 
 ---
 
-## Getting Started
+## Structura Proiectului
 
-### Prerequisites
-Make sure you have the following installed on your machine:
-- Python 3.9 or later
-- pip (Python package installer)
-- Git
-- Arduino IDE (optional, for uploading firmware to the Arduino board)
+```plaintext
+pai_project/
+├── PAI_APP/               # Aplicația principală Django
+│   ├── __init__.py        # Marchează directorul ca un modul Python
+│   ├── settings.py        # Configurațiile globale ale proiectului
+│   ├── urls.py            # Definirea rutelor URL principale
+│   ├── wsgi.py            # Configurație pentru serverul WSGI
+│   ├── asgi.py            # Configurație pentru serverul ASGI (opțional)
+│
+├── apps/                  # Aplicațiile specifice funcționalităților
+│   ├── main/              # Aplicația pentru interfața utilizator
+│   │   ├── admin.py       # Configurarea panoului de administrare
+│   │   ├── apps.py        # Configurații specifice aplicației
+│   │   ├── models.py      # Modele pentru baza de date
+│   │   ├── views.py       # Logica principală a aplicației
+│   │   ├── urls.py        # Rutele URL specifice aplicației
+│   │   ├── templates/     # Șabloanele HTML
+│   │   ├── static/        # Fișiere CSS și JavaScript pentru aplicație
+│   │
+│   ├── arduino_comm/      # Aplicația pentru comunicarea cu Arduino
+│       ├── admin.py       # Configurarea panoului de administrare pentru senzori
+│       ├── apps.py        # Configurații specifice aplicației
+│       ├── models.py      # Modele pentru stocarea senzorilor
+│       ├── views.py       # Funcții pentru gestionarea hardware-ului
+│       ├── urls.py        # Rutele URL pentru API-ul de comunicare
+│       ├── templates/     # Șabloane pentru configurarea senzorilor
+│       ├── static/        # CSS și JavaScript specifice aplicației
+│
+├── static/                # Fișiere statice pentru interfața web
+│   ├── css/               # Fișiere CSS pentru stilizare
+│   ├── js/                # Fișiere JavaScript pentru interactivitate
+│   ├── images/            # Resurse vizuale utilizate în interfață
+│
+├── templates/             # Șabloane HTML pentru paginile aplicației
+│   ├── arduino_comm/      # Șabloane pentru configurarea hardware-ului
+│   ├── main/              # Șabloane pentru autentificare și dashboard
+│   ├── 403.html           # Pagina pentru eroare 403 (acces interzis)
+│   ├── 404.html           # Pagina pentru eroare 404 (pagina nu există)
+│   ├── 500.html           # Pagina pentru eroare 500 (eroare server)
+│
+├── ZSENSOR_COMUNICATION/  # Integrarea hardware-ului Arduino
+│   ├── arduino.py         # Script Python pentru comunicarea cu Arduino
+│   ├── arduino_script.ino # Codul pentru placa Arduino
+│   ├── simulator.py       # Simulator pentru testarea comunicației hardware
+│
+├── manage.py              # Script pentru gestionarea proiectului Django
+├── requirements.txt       # Lista dependențelor necesare proiectului
+├── db.sqlite3             # Fișierul bazei de date SQLite
+```
 
-### Installation
-1. Clone the repository:
+---
+
+## Configurare și Instalare
+
+### Cerințe Preliminare
+
+Asigură-te că ai instalate următoarele pe sistemul tău:
+- **Python**: versiunea 3.9 sau mai recentă
+- **pip**: managerul de pachete pentru Python
+- **Git**: pentru clonarea repository-ului
+- **Arduino IDE**: pentru încărcarea codului pe placa Arduino (opțional)
+
+### Pași pentru Instalare
+
+1. **Clonarea Repository-ului:**
+
    ```bash
    git clone https://github.com/Akonomy/pai_project.git
    cd pai_project
    ```
 
-2. Create and activate a virtual environment:
+2. **Crearea și Activarea unui Mediu Virtual:**
+
    ```bash
    python -m venv venv
-   
-   # On Windows
+
+   # Pentru Windows
    venv\Scripts\activate
 
-   # On Linux/MacOS
+   # Pentru Linux/MacOS
    source venv/bin/activate
    ```
 
-3. Install dependencies:
+3. **Instalarea Dependențelor:**
+
    ```bash
    pip install -r requirements.txt
    ```
 
-4. Apply database migrations:
+4. **Aplicarea Migrațiilor pentru Baza de Date:**
+
    ```bash
    python manage.py migrate
    ```
 
-5. Create a superuser:
+5. **Crearea unui Superuser:**
+
    ```bash
    python manage.py createsuperuser
    ```
-   Follow the prompts to set up the admin account.
 
-6. Run the development server:
+   Urmează instrucțiunile pentru a configura contul de administrator.
+
+6. **Pornirea Serverului de Dezvoltare:**
+
    ```bash
    python manage.py runserver
    ```
-   Access the application at `http://127.0.0.1:8000`.
 
-### Configuring Arduino
-1. Open `ZSENSOR_COMUNICATION/arduino_script.ino` in the Arduino IDE.
-2. Connect your Arduino board and upload the script.
-3. Ensure the port settings in `arduino.py` match the connected port.
+   Accesează aplicația la `http://127.0.0.1:8000`.
 
 ---
 
-## Usage
-- **Login/Registration**: Access user accounts and the dashboard.
-- **Dashboard**: Control devices and monitor their status.
-- **Control Sensors**: Use the `arduino_comm` API to configure and interact with sensors.
+## Configurarea Hardware-ului
 
-### API Endpoints
-- **`/fetch/`**: Fetch current sensor data.
-- **`/receive/`**: Send updates to sensors.
+### Utilizarea Simulatorului Arduino
+
+Dacă nu dispui de o placă Arduino fizică, poți utiliza simulatorul inclus în proiect:
+
+1. **Rularea Simulatorului:**
+
+   ```bash
+   python ZSENSOR_COMUNICATION/simulator.py
+   ```
+
+   Simulatorul va emula comportamentul unei plăci Arduino, permițând testarea funcționalităților aplicației fără hardware fizic.
+
+### Configurarea unei Plăci Arduino Fizice
+
+Dacă ai acces la o placă Arduino, urmează pașii de mai jos:
+
+1. **Încărcarea Codului pe Placă:**
+
+   - Deschide `ZSENSOR_COMUNICATION/arduino_script.ino` în Arduino IDE.
+   - Conectează placa Arduino la computer.
+   - Selectează portul corespunzător și tipul plăcii din Arduino IDE.
+   - Încarcă codul pe placă.
+
+2. **Conectarea la Placă:**
+
+   - Asigură-te că setările din `arduino.py` corespund portului la care este conectată placa.
+   - Rulează scriptul pentru a iniția comunicarea:
+
+     ```bash
+     python ZSENSOR_COMUNICATION/arduino.py
+     ```
+
+---
+
+## Detalii despre Conexiunile Hardware
+
+Codul `arduino_script.ino` definește următoarele conexiuni și funcționalități:
+
+- **Pini Digitali (12, 13):** Controlul ușilor (on/off).
+- **Pini Analogici:** Controlează aerul condiționat și temperatura prin PWM (Pulse Width Modulation).
+- **Pini de Intrare:** Confirmă dacă ușa s-a închis corect (valori primite de la senzori).
+
+Exemplu de configurare pentru pini în `arduino_script.ino`:
+
+```cpp
+const int DOOR1_PIN = 12;  // Pin pentru controlul ușii 1
+const int DOOR2_PIN = 13;  // Pin pentru controlul ușii 2
+const int AC_PIN = A0;     // Pin analogic pentru aer condiționat
+const int TEMP_PIN = A1;   // Pin analogic pentru temperatură
+const int DOOR1_STATUS_PIN = 2;  // Confirmare stare ușă 1
+const int DOOR2_STATUS_PIN = 3;  // Confirmare stare ușă 2
+```
 
 ---
 
 ## Troubleshooting
-- **Missing Dependencies**:
-  Ensure all libraries are installed using:
-  ```bash
-  pip install -r requirements.txt
-  ```
-- **Port Issues with Arduino**:
-  Check the connected port using:
+
+- **Porturi Serial:** Dacă scriptul `arduino.py` nu se conectează, verifică portul USB utilizat:
+
   ```bash
   python -m serial.tools.list_ports
   ```
-- **Database Issues**:
-  If migrations fail, delete `db.sqlite3` and rerun:
+
+- **Probleme cu Dependențele:** Asigură-te că ai instalat toate bibliotecile necesare:
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+- **Migrate Error:** Dacă baza de date SQLite nu funcționează corect, șterge fișierul `db.sqlite3` și rerulează migrațiile:
+
   ```bash
   python manage.py migrate
   ```
@@ -130,4 +201,5 @@ Make sure you have the following installed on your machine:
 ---
 
 ## License
+
 This project is licensed under the MIT License. See the LICENSE file for details.
