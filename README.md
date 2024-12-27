@@ -10,52 +10,53 @@
 
 ```plaintext
 pai_project/
-├── PAI_APP/               # Aplicația principală Django
-│   ├── __init__.py        # Marchează directorul ca un modul Python
-│   ├── settings.py        # Configurațiile globale ale proiectului
-│   ├── urls.py            # Definirea rutelor URL principale
-│   ├── wsgi.py            # Configurație pentru serverul WSGI
-│   ├── asgi.py            # Configurație pentru serverul ASGI (opțional)
+├── PAI_APP/                  # Aplicația principală Django
+│   ├── __init__.py           # Marchează directorul ca un modul Python
+│   ├── settings.py           # Configurațiile globale ale proiectului
+│   ├── urls.py               # Definirea rutelor URL principale
+│   ├── wsgi.py               # Configurație pentru serverul WSGI
+│   ├── asgi.py               # Configurație pentru serverul ASGI (opțional)
 │
-├── apps/                  # Aplicațiile specifice funcționalităților
-│   ├── main/              # Aplicația pentru interfața utilizator
-│   │   ├── admin.py       # Configurarea panoului de administrare
-│   │   ├── apps.py        # Configurații specifice aplicației
-│   │   ├── models.py      # Modele pentru baza de date
-│   │   ├── views.py       # Logica principală a aplicației
-│   │   ├── urls.py        # Rutele URL specifice aplicației
-│   │   ├── templates/     # Șabloanele HTML
-│   │   ├── static/        # Fișiere CSS și JavaScript pentru aplicație
+├── apps/                     # Aplicațiile specifice funcționalităților
+│   ├── main/                 # Aplicația pentru interfața utilizator
+│   │   ├── admin.py          # Configurarea panoului de administrare
+│   │   ├── apps.py           # Configurații specifice aplicației
+│   │   ├── models.py         # Modele pentru baza de date
+│   │   ├── views.py          # Logica principală a aplicației
+│   │   ├── urls.py           # Rutele URL specifice aplicației
+│   │   ├── templates/        # Șabloanele HTML
+│   │   ├── static/           # Fișiere CSS și JavaScript pentru aplicație
 │   │
-│   ├── arduino_comm/      # Aplicația pentru comunicarea cu Arduino
-│       ├── admin.py       # Configurarea panoului de administrare pentru senzori
-│       ├── apps.py        # Configurații specifice aplicației
-│       ├── models.py      # Modele pentru stocarea senzorilor
-│       ├── views.py       # Funcții pentru gestionarea hardware-ului
-│       ├── urls.py        # Rutele URL pentru API-ul de comunicare
-│       ├── templates/     # Șabloane pentru configurarea senzorilor
-│       ├── static/        # CSS și JavaScript specifice aplicației
+│   ├── arduino_comm/         # Aplicația pentru comunicarea cu Arduino
+│       ├── admin.py          # Configurarea panoului de administrare pentru senzori
+│       ├── apps.py           # Configurații specifice aplicației
+│       ├── models.py         # Modele pentru stocarea senzorilor
+│       ├── views.py          # Funcții pentru gestionarea hardware-ului
+│       ├── urls.py           # Rutele URL pentru API-ul de comunicare
+│       ├── templates/        # Șabloane pentru configurarea senzorilor
+│       ├── static/           # CSS și JavaScript specifice aplicației
 │
-├── static/                # Fișiere statice pentru interfața web
-│   ├── css/               # Fișiere CSS pentru stilizare
-│   ├── js/                # Fișiere JavaScript pentru interactivitate
-│   ├── images/            # Resurse vizuale utilizate în interfață
+├── static/                   # Fișiere statice pentru interfața web
+│   ├── css/                  # Fișiere CSS pentru stilizare
+│   ├── js/                   # Fișiere JavaScript pentru interactivitate
+│   ├── images/               # Resurse vizuale utilizate în interfață
 │
-├── templates/             # Șabloane HTML pentru paginile aplicației
-│   ├── arduino_comm/      # Șabloane pentru configurarea hardware-ului
-│   ├── main/              # Șabloane pentru autentificare și dashboard
-│   ├── 403.html           # Pagina pentru eroare 403 (acces interzis)
-│   ├── 404.html           # Pagina pentru eroare 404 (pagina nu există)
-│   ├── 500.html           # Pagina pentru eroare 500 (eroare server)
+├── templates/                # Șabloane HTML pentru paginile aplicației
+│   ├── arduino_comm/         # Șabloane pentru configurarea hardware-ului
+│   ├── main/                 # Șabloane pentru autentificare și dashboard
+│   ├── 403.html              # Pagina pentru eroare 403 (acces interzis)
+│   ├── 404.html              # Pagina pentru eroare 404 (pagina nu există)
+│   ├── 500.html              # Pagina pentru eroare 500 (eroare server)
 │
-├── ZSENSOR_COMUNICATION/  # Integrarea hardware-ului Arduino
-│   ├── arduino.py         # Script Python pentru comunicarea cu Arduino
-│   ├── arduino_script.ino # Codul pentru placa Arduino
-│   ├── simulator.py       # Simulator pentru testarea comunicației hardware
+├── ZSENSOR_COMUNICATION/     # Integrarea hardware-ului Arduino
+│   ├── arduino.py            # Script Python pentru comunicarea cu Arduino
+│   ├── arduino_script.ino    # Codul pentru placa Arduino
+│   ├── simulator.py          # Script pentru comunicarea cu simulatorul 
+│   ├── ArduinoSimulator.py   # Simulator arduino 
 │
-├── manage.py              # Script pentru gestionarea proiectului Django
-├── requirements.txt       # Lista dependențelor necesare proiectului
-├── db.sqlite3             # Fișierul bazei de date SQLite
+├── manage.py                 # Script pentru gestionarea proiectului Django
+├── requirements.txt          # Lista dependențelor necesare proiectului
+├── db.sqlite3                # Fișierul bazei de date SQLite
 ```
 
 ---
